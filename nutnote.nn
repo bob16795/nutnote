@@ -1,0 +1,636 @@
+{
+  "wires": [
+    {
+      "start": "633b0de688f339ada1f28710",
+      "end": "633b034a16b0acd686a49e0e"
+    },
+    {
+      "start": "633b0de188f339ada1f2870f",
+      "end": "633b034a16b0acd686a49e0e"
+    },
+    {
+      "start": "633b0c4988f339ada1f286fe",
+      "end": "633b0b507ff3252c51d321bd"
+    },
+    {
+      "start": "633b0c4c88f339ada1f28701",
+      "end": "633b0b507ff3252c51d321bd"
+    },
+    {
+      "start": "633b0c4b88f339ada1f28700",
+      "end": "633b0b507ff3252c51d321bd"
+    },
+    {
+      "start": "633b0c4b88f339ada1f286ff",
+      "end": "633b0b507ff3252c51d321bd"
+    },
+    {
+      "start": "633b0200a1e920aa069f7241",
+      "end": "633b0c4988f339ada1f286fe"
+    },
+    {
+      "start": "633b02fba1e920aa069f7255",
+      "end": "633b0c4988f339ada1f286fe"
+    },
+    {
+      "start": "633b0303a1e920aa069f7256",
+      "end": "633b0c4988f339ada1f286fe"
+    },
+    {
+      "start": "633b0e1b88f339ada1f28712",
+      "end": "633b0c4988f339ada1f286fe"
+    },
+    {
+      "start": "633b0e6a88f339ada1f2871d",
+      "end": "633b0c4988f339ada1f286fe"
+    },
+    {
+      "start": "633b0255a1e920aa069f7249",
+      "end": "633b0c4b88f339ada1f286ff"
+    },
+    {
+      "start": "633b0ca088f339ada1f28703",
+      "end": "633b0c4b88f339ada1f286ff"
+    },
+    {
+      "start": "633b029ea1e920aa069f724c",
+      "end": "633b0c4b88f339ada1f28700"
+    },
+    {
+      "start": "633b030ea1e920aa069f7257",
+      "end": "633b0c4b88f339ada1f28700"
+    },
+    {
+      "start": "633b034a16b0acd686a49e0e",
+      "end": "633b0c4c88f339ada1f28701"
+    },
+    {
+      "start": "633b021da1e920aa069f7244",
+      "end": "633b0ca088f339ada1f28703"
+    },
+    {
+      "start": "633b02bea1e920aa069f7250",
+      "end": "633b0ca088f339ada1f28703"
+    },
+    {
+      "start": "633b0d0388f339ada1f28704",
+      "end": "633b02cfa1e920aa069f7252"
+    },
+    {
+      "start": "633b0d4888f339ada1f28708",
+      "end": "633b02cfa1e920aa069f7252"
+    },
+    {
+      "start": "633b0d3b88f339ada1f28707",
+      "end": "633b02cfa1e920aa069f7252"
+    },
+    {
+      "start": "633b0d2888f339ada1f28705",
+      "end": "633b0d0388f339ada1f28704"
+    },
+    {
+      "start": "633b0b507ff3252c51d321bd",
+      "end": "633b0d4888f339ada1f28708"
+    }
+  ],
+  "cards": [
+    {
+      "id": "633b01d1a1e920aa069f723e",
+      "kind": "Note",
+      "text": "Nutnote Todo\nCompletion",
+      "location": {
+        "x": 20.0,
+        "y": 4.0,
+        "w": 10.0,
+        "h": 2.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0200a1e920aa069f7241",
+      "kind": "Todo",
+      "text": "Connected cards",
+      "done": false,
+      "location": {
+        "x": 21.0,
+        "y": 11.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b020da1e920aa069f7242",
+      "kind": "Note",
+      "text": "Cards",
+      "location": {
+        "x": 20.0,
+        "y": 9.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b021da1e920aa069f7244",
+      "kind": "Todo",
+      "text": "Multi move\n",
+      "done": false,
+      "location": {
+        "x": 34.0,
+        "y": 13.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0255a1e920aa069f7249",
+      "kind": "Todo",
+      "text": "Copy paste",
+      "done": false,
+      "location": {
+        "x": 33.0,
+        "y": 11.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b025da1e920aa069f724a",
+      "kind": "Note",
+      "text": "General UI",
+      "location": {
+        "x": 32.0,
+        "y": 9.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b029ea1e920aa069f724c",
+      "kind": "Todo",
+      "text": "Wire direction",
+      "done": false,
+      "location": {
+        "x": 45.0,
+        "y": 12.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b02b1a1e920aa069f724f",
+      "kind": "Note",
+      "text": "Wires\n",
+      "location": {
+        "x": 44.0,
+        "y": 9.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b02bea1e920aa069f7250",
+      "kind": "Todo",
+      "text": "Better move",
+      "done": false,
+      "location": {
+        "x": 34.0,
+        "y": 14.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b02fba1e920aa069f7255",
+      "kind": "Todo",
+      "text": "Add menu",
+      "done": false,
+      "location": {
+        "x": 21.0,
+        "y": 12.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0303a1e920aa069f7256",
+      "kind": "Todo",
+      "text": "Check Todo",
+      "done": false,
+      "location": {
+        "x": 21.0,
+        "y": 13.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b030ea1e920aa069f7257",
+      "kind": "Todo",
+      "text": "Wire mode",
+      "done": true,
+      "location": {
+        "x": 45.0,
+        "y": 11.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b033c16b0acd686a49e0b",
+      "kind": "Note",
+      "text": "Saves",
+      "location": {
+        "x": 56.0,
+        "y": 9.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b034a16b0acd686a49e0e",
+      "kind": "Todo",
+      "text": "Save position",
+      "done": false,
+      "location": {
+        "x": 57.0,
+        "y": 11.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0b507ff3252c51d321bd",
+      "kind": "Script",
+      "text": "12%",
+      "file": "scripts/and.nim",
+      "location": {
+        "x": 20.0,
+        "y": 6.0,
+        "w": 10.0,
+        "h": 2.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 2.0
+      }
+    },
+    {
+      "id": "633b0c4988f339ada1f286fe",
+      "kind": "Todo",
+      "text": "1.0\n",
+      "done": false,
+      "location": {
+        "x": 20.0,
+        "y": 10.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0c4b88f339ada1f286ff",
+      "kind": "Todo",
+      "text": "1.0",
+      "done": false,
+      "location": {
+        "x": 32.0,
+        "y": 10.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0c4b88f339ada1f28700",
+      "kind": "Todo",
+      "text": "1.0",
+      "done": false,
+      "location": {
+        "x": 44.0,
+        "y": 10.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0c4c88f339ada1f28701",
+      "kind": "Todo",
+      "text": "1.0",
+      "done": false,
+      "location": {
+        "x": 56.0,
+        "y": 10.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0ca088f339ada1f28703",
+      "kind": "Todo",
+      "text": "Revamp Move",
+      "done": true,
+      "location": {
+        "x": 33.0,
+        "y": 12.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b02cfa1e920aa069f7252",
+      "kind": "Todo",
+      "text": "Release",
+      "done": false,
+      "location": {
+        "x": 8.0,
+        "y": 1.0,
+        "w": 6.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0d0388f339ada1f28704",
+      "kind": "Todo",
+      "text": "Itch page",
+      "done": false,
+      "location": {
+        "x": 9.0,
+        "y": 2.0,
+        "w": 6.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0d2888f339ada1f28705",
+      "kind": "Todo",
+      "text": "Description",
+      "done": false,
+      "location": {
+        "x": 10.0,
+        "y": 4.0,
+        "w": 6.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0d3b88f339ada1f28707",
+      "kind": "Todo",
+      "text": "Help system",
+      "done": false,
+      "location": {
+        "x": 9.0,
+        "y": 5.0,
+        "w": 6.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0d4888f339ada1f28708",
+      "kind": "Todo",
+      "text": "MVP",
+      "done": false,
+      "location": {
+        "x": 9.0,
+        "y": 6.0,
+        "w": 6.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0d8888f339ada1f28709",
+      "kind": "Todo",
+      "text": "Create",
+      "done": false,
+      "location": {
+        "x": 10.0,
+        "y": 3.0,
+        "w": 6.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0da488f339ada1f2870a",
+      "kind": "Note",
+      "text": "Later",
+      "location": {
+        "x": -3.0,
+        "y": 4.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0dbc88f339ada1f2870c",
+      "kind": "Todo",
+      "text": "Frame card",
+      "done": false,
+      "location": {
+        "x": -3.0,
+        "y": 5.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0dc188f339ada1f2870d",
+      "kind": "Todo",
+      "text": "Panel card",
+      "done": false,
+      "location": {
+        "x": -3.0,
+        "y": 6.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0de188f339ada1f2870f",
+      "kind": "Todo",
+      "text": "Zoom",
+      "done": false,
+      "location": {
+        "x": 58.0,
+        "y": 12.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0de688f339ada1f28710",
+      "kind": "Todo",
+      "text": "Location",
+      "done": false,
+      "location": {
+        "x": 58.0,
+        "y": 13.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0dfe88f339ada1f28711",
+      "kind": "Todo",
+      "text": "Wire borders",
+      "done": false,
+      "location": {
+        "x": -3.0,
+        "y": 7.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0e1b88f339ada1f28712",
+      "kind": "Todo",
+      "text": "Todo undo",
+      "done": false,
+      "location": {
+        "x": 21.0,
+        "y": 14.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0e6a88f339ada1f2871d",
+      "kind": "Todo",
+      "text": "Script Errors",
+      "done": false,
+      "location": {
+        "x": 21.0,
+        "y": 15.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    }
+  ]
+}
