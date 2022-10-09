@@ -50,6 +50,10 @@ proc setTarget*(c: var Cursor, target: Rect) =
 
 proc draw*(c: Cursor, unit: float32) =
   var box = c.bounds.fix().scale(unit)
+  if box.width < unit:
+    box.width = unit
+  if box.height < unit:
+    box.height = unit
   box.location = box.location - newVector2(curOffset, curOffset)
   box.size = box.size + newVector2(curOffset, curOffset) * 2
   if c.resize:

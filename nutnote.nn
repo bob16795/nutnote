@@ -9,26 +9,6 @@
       "end": "633b034a16b0acd686a49e0e"
     },
     {
-      "start": "633b0c4988f339ada1f286fe",
-      "end": "633b0b507ff3252c51d321bd"
-    },
-    {
-      "start": "633b0c4c88f339ada1f28701",
-      "end": "633b0b507ff3252c51d321bd"
-    },
-    {
-      "start": "633b0c4b88f339ada1f28700",
-      "end": "633b0b507ff3252c51d321bd"
-    },
-    {
-      "start": "633b0c4b88f339ada1f286ff",
-      "end": "633b0b507ff3252c51d321bd"
-    },
-    {
-      "start": "633b0200a1e920aa069f7241",
-      "end": "633b0c4988f339ada1f286fe"
-    },
-    {
       "start": "633b02fba1e920aa069f7255",
       "end": "633b0c4988f339ada1f286fe"
     },
@@ -45,11 +25,31 @@
       "end": "633b0c4988f339ada1f286fe"
     },
     {
+      "start": "633b26dbd915f13261f8e7b6",
+      "end": "633b0c4988f339ada1f286fe"
+    },
+    {
+      "start": "633b27a3d915f13261f8e7bc",
+      "end": "633b0c4988f339ada1f286fe"
+    },
+    {
       "start": "633b0255a1e920aa069f7249",
       "end": "633b0c4b88f339ada1f286ff"
     },
     {
       "start": "633b0ca088f339ada1f28703",
+      "end": "633b0c4b88f339ada1f286ff"
+    },
+    {
+      "start": "633b2f88f1264999ddf9d619",
+      "end": "633b0c4b88f339ada1f286ff"
+    },
+    {
+      "start": "6341a7386345c55c64e54e7d",
+      "end": "633b0c4b88f339ada1f286ff"
+    },
+    {
+      "start": "634213866b8a88d3b205ad30",
       "end": "633b0c4b88f339ada1f286ff"
     },
     {
@@ -61,12 +61,12 @@
       "end": "633b0c4b88f339ada1f28700"
     },
     {
-      "start": "633b034a16b0acd686a49e0e",
-      "end": "633b0c4c88f339ada1f28701"
+      "start": "6341a7bb6345c55c64e54e81",
+      "end": "633b0c4b88f339ada1f28700"
     },
     {
-      "start": "633b021da1e920aa069f7244",
-      "end": "633b0ca088f339ada1f28703"
+      "start": "633b034a16b0acd686a49e0e",
+      "end": "633b0c4c88f339ada1f28701"
     },
     {
       "start": "633b02bea1e920aa069f7250",
@@ -85,12 +85,44 @@
       "end": "633b02cfa1e920aa069f7252"
     },
     {
+      "start": "633c1cf8f318f2f067305529",
+      "end": "633b02cfa1e920aa069f7252"
+    },
+    {
       "start": "633b0d2888f339ada1f28705",
       "end": "633b0d0388f339ada1f28704"
     },
     {
-      "start": "633b0b507ff3252c51d321bd",
+      "start": "633b0d8888f339ada1f28709",
+      "end": "633b0d0388f339ada1f28704"
+    },
+    {
+      "start": "633b2ea77ddc64c3e0a6f69d",
       "end": "633b0d4888f339ada1f28708"
+    },
+    {
+      "start": "633b0c4988f339ada1f286fe",
+      "end": "633b2ea77ddc64c3e0a6f69d"
+    },
+    {
+      "start": "633b0c4b88f339ada1f28700",
+      "end": "633b2ea77ddc64c3e0a6f69d"
+    },
+    {
+      "start": "633b0c4c88f339ada1f28701",
+      "end": "633b2ea77ddc64c3e0a6f69d"
+    },
+    {
+      "start": "633b0c4b88f339ada1f286ff",
+      "end": "633b2ea77ddc64c3e0a6f69d"
+    },
+    {
+      "start": "633b2668f12c87f9e62a7065",
+      "end": "633c1cf8f318f2f067305529"
+    },
+    {
+      "start": "633b02cfa1e920aa069f7252",
+      "end": "6341a8616345c55c64e54e87"
     }
   ],
   "cards": [
@@ -103,22 +135,6 @@
         "y": 4.0,
         "w": 10.0,
         "h": 2.0
-      },
-      "min": {
-        "x": 5.0,
-        "y": 1.0
-      }
-    },
-    {
-      "id": "633b0200a1e920aa069f7241",
-      "kind": "Todo",
-      "text": "Connected cards",
-      "done": false,
-      "location": {
-        "x": 21.0,
-        "y": 11.0,
-        "w": 10.0,
-        "h": 1.0
       },
       "min": {
         "x": 5.0,
@@ -146,8 +162,8 @@
       "text": "Multi move\n",
       "done": false,
       "location": {
-        "x": 34.0,
-        "y": 13.0,
+        "x": -1.0,
+        "y": 18.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -163,7 +179,7 @@
       "done": false,
       "location": {
         "x": 33.0,
-        "y": 11.0,
+        "y": 15.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -191,9 +207,9 @@
       "id": "633b029ea1e920aa069f724c",
       "kind": "Todo",
       "text": "Wire direction",
-      "done": false,
+      "done": true,
       "location": {
-        "x": 45.0,
+        "x": 46.0,
         "y": 12.0,
         "w": 10.0,
         "h": 1.0
@@ -208,7 +224,7 @@
       "kind": "Note",
       "text": "Wires\n",
       "location": {
-        "x": 44.0,
+        "x": 45.0,
         "y": 9.0,
         "w": 10.0,
         "h": 1.0
@@ -222,10 +238,10 @@
       "id": "633b02bea1e920aa069f7250",
       "kind": "Todo",
       "text": "Better move",
-      "done": false,
+      "done": true,
       "location": {
         "x": 34.0,
-        "y": 14.0,
+        "y": 12.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -257,7 +273,7 @@
       "done": false,
       "location": {
         "x": 21.0,
-        "y": 13.0,
+        "y": 15.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -272,7 +288,7 @@
       "text": "Wire mode",
       "done": true,
       "location": {
-        "x": 45.0,
+        "x": 46.0,
         "y": 11.0,
         "w": 10.0,
         "h": 1.0
@@ -287,7 +303,7 @@
       "kind": "Note",
       "text": "Saves",
       "location": {
-        "x": 56.0,
+        "x": 58.0,
         "y": 9.0,
         "w": 10.0,
         "h": 1.0
@@ -301,9 +317,9 @@
       "id": "633b034a16b0acd686a49e0e",
       "kind": "Todo",
       "text": "Save position",
-      "done": false,
+      "done": true,
       "location": {
-        "x": 57.0,
+        "x": 59.0,
         "y": 11.0,
         "w": 10.0,
         "h": 1.0
@@ -311,22 +327,6 @@
       "min": {
         "x": 5.0,
         "y": 1.0
-      }
-    },
-    {
-      "id": "633b0b507ff3252c51d321bd",
-      "kind": "Script",
-      "text": "12%",
-      "file": "scripts/and.nim",
-      "location": {
-        "x": 20.0,
-        "y": 6.0,
-        "w": 10.0,
-        "h": 2.0
-      },
-      "min": {
-        "x": 5.0,
-        "y": 2.0
       }
     },
     {
@@ -349,7 +349,7 @@
       "id": "633b0c4b88f339ada1f286ff",
       "kind": "Todo",
       "text": "1.0",
-      "done": false,
+      "done": true,
       "location": {
         "x": 32.0,
         "y": 10.0,
@@ -367,7 +367,7 @@
       "text": "1.0",
       "done": false,
       "location": {
-        "x": 44.0,
+        "x": 45.0,
         "y": 10.0,
         "w": 10.0,
         "h": 1.0
@@ -383,7 +383,7 @@
       "text": "1.0",
       "done": false,
       "location": {
-        "x": 56.0,
+        "x": 58.0,
         "y": 10.0,
         "w": 10.0,
         "h": 1.0
@@ -400,7 +400,7 @@
       "done": true,
       "location": {
         "x": 33.0,
-        "y": 12.0,
+        "y": 11.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -417,7 +417,7 @@
       "location": {
         "x": 8.0,
         "y": 1.0,
-        "w": 6.0,
+        "w": 7.0,
         "h": 1.0
       },
       "min": {
@@ -429,11 +429,11 @@
       "id": "633b0d0388f339ada1f28704",
       "kind": "Todo",
       "text": "Itch page",
-      "done": false,
+      "done": true,
       "location": {
         "x": 9.0,
         "y": 2.0,
-        "w": 6.0,
+        "w": 7.0,
         "h": 1.0
       },
       "min": {
@@ -449,7 +449,7 @@
       "location": {
         "x": 10.0,
         "y": 4.0,
-        "w": 6.0,
+        "w": 7.0,
         "h": 1.0
       },
       "min": {
@@ -465,7 +465,7 @@
       "location": {
         "x": 9.0,
         "y": 5.0,
-        "w": 6.0,
+        "w": 7.0,
         "h": 1.0
       },
       "min": {
@@ -481,7 +481,7 @@
       "location": {
         "x": 9.0,
         "y": 6.0,
-        "w": 6.0,
+        "w": 7.0,
         "h": 1.0
       },
       "min": {
@@ -493,11 +493,11 @@
       "id": "633b0d8888f339ada1f28709",
       "kind": "Todo",
       "text": "Create",
-      "done": false,
+      "done": true,
       "location": {
         "x": 10.0,
         "y": 3.0,
-        "w": 6.0,
+        "w": 7.0,
         "h": 1.0
       },
       "min": {
@@ -508,10 +508,10 @@
     {
       "id": "633b0da488f339ada1f2870a",
       "kind": "Note",
-      "text": "Later",
+      "text": "Ideas",
       "location": {
         "x": -3.0,
-        "y": 4.0,
+        "y": 9.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -526,8 +526,8 @@
       "text": "Frame card",
       "done": false,
       "location": {
-        "x": -3.0,
-        "y": 5.0,
+        "x": -1.0,
+        "y": 15.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -539,11 +539,11 @@
     {
       "id": "633b0dc188f339ada1f2870d",
       "kind": "Todo",
-      "text": "Panel card",
+      "text": "Panel / group cards",
       "done": false,
       "location": {
-        "x": -3.0,
-        "y": 6.0,
+        "x": -1.0,
+        "y": 11.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -556,9 +556,9 @@
       "id": "633b0de188f339ada1f2870f",
       "kind": "Todo",
       "text": "Zoom",
-      "done": false,
+      "done": true,
       "location": {
-        "x": 58.0,
+        "x": 60.0,
         "y": 12.0,
         "w": 10.0,
         "h": 1.0
@@ -572,26 +572,10 @@
       "id": "633b0de688f339ada1f28710",
       "kind": "Todo",
       "text": "Location",
-      "done": false,
+      "done": true,
       "location": {
-        "x": 58.0,
+        "x": 60.0,
         "y": 13.0,
-        "w": 10.0,
-        "h": 1.0
-      },
-      "min": {
-        "x": 5.0,
-        "y": 1.0
-      }
-    },
-    {
-      "id": "633b0dfe88f339ada1f28711",
-      "kind": "Todo",
-      "text": "Wire borders",
-      "done": false,
-      "location": {
-        "x": -3.0,
-        "y": 7.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -607,7 +591,7 @@
       "done": false,
       "location": {
         "x": 21.0,
-        "y": 14.0,
+        "y": 13.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -623,7 +607,293 @@
       "done": false,
       "location": {
         "x": 21.0,
-        "y": 15.0,
+        "y": 14.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b2668f12c87f9e62a7065",
+      "kind": "Image",
+      "text": "",
+      "file": "content/logo.png",
+      "location": {
+        "x": -3.0,
+        "y": 1.0,
+        "w": 10.0,
+        "h": 7.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 5.0
+      }
+    },
+    {
+      "id": "633b26dbd915f13261f8e7b6",
+      "kind": "Todo",
+      "text": "Image Card",
+      "done": true,
+      "location": {
+        "x": 21.0,
+        "y": 11.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b2799d915f13261f8e7bb",
+      "kind": "Todo",
+      "text": "Change  script / image",
+      "done": false,
+      "location": {
+        "x": -1.0,
+        "y": 12.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b27a3d915f13261f8e7bc",
+      "kind": "Todo",
+      "text": "Cut overflow",
+      "done": false,
+      "location": {
+        "x": 21.0,
+        "y": 16.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b27f4d915f13261f8e7be",
+      "kind": "Todo",
+      "text": "rc file",
+      "done": false,
+      "location": {
+        "x": -1.0,
+        "y": 17.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b2ea77ddc64c3e0a6f69d",
+      "kind": "Todo",
+      "text": "Version 1.0",
+      "done": false,
+      "location": {
+        "x": 20.0,
+        "y": 6.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b2f88f1264999ddf9d619",
+      "kind": "Todo",
+      "text": "Fix scroll",
+      "done": true,
+      "location": {
+        "x": 33.0,
+        "y": 13.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633c1cf8f318f2f067305529",
+      "kind": "Todo",
+      "text": "Logo",
+      "done": true,
+      "location": {
+        "x": 9.0,
+        "y": 7.0,
+        "w": 7.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633b0200a1e920aa069f7241",
+      "kind": "Todo",
+      "text": "Connected cards",
+      "done": false,
+      "location": {
+        "x": -1.0,
+        "y": 13.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "633c26403e0610bf979bcdb5",
+      "kind": "Todo",
+      "text": "Wire selection",
+      "done": false,
+      "location": {
+        "x": -1.0,
+        "y": 14.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "6341a7386345c55c64e54e7d",
+      "kind": "Todo",
+      "text": "Fullscreen",
+      "done": true,
+      "location": {
+        "x": 33.0,
+        "y": 14.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "6341a7bb6345c55c64e54e81",
+      "kind": "Todo",
+      "text": "Show wire while making",
+      "done": false,
+      "location": {
+        "x": 46.0,
+        "y": 13.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "6341a7f36345c55c64e54e84",
+      "kind": "Note",
+      "text": "Sometime",
+      "location": {
+        "x": -2.0,
+        "y": 10.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "6341a8066345c55c64e54e85",
+      "kind": "Note",
+      "text": "2.0",
+      "location": {
+        "x": -2.0,
+        "y": 16.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "6341a8316345c55c64e54e86",
+      "kind": "Todo",
+      "text": "Better undo",
+      "done": false,
+      "location": {
+        "x": -1.0,
+        "y": 19.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "6341a8616345c55c64e54e87",
+      "kind": "Script",
+      "text": "52%",
+      "file": "scripts/value.nim",
+      "location": {
+        "x": 8.0,
+        "y": -1.0,
+        "w": 7.0,
+        "h": 2.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 2.0
+      }
+    },
+    {
+      "id": "63420fc748cc8e7298337767",
+      "kind": "Todo",
+      "text": "Script edit menu",
+      "done": false,
+      "location": {
+        "x": -1.0,
+        "y": 20.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "634213866b8a88d3b205ad30",
+      "kind": "Todo",
+      "text": "Drag n drop files",
+      "done": false,
+      "location": {
+        "x": 33.0,
+        "y": 16.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -632,5 +902,12 @@
         "y": 1.0
       }
     }
-  ]
+  ],
+  "camera": {
+    "zoom": 1.265625,
+    "position": {
+      "x": 25.08791923522949,
+      "y": 9.549201011657715
+    }
+  }
 }

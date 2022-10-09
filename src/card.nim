@@ -81,7 +81,7 @@ method pressKey*(c: Card, text: string) =
   
 method drawText*(c: Card, f: Font, unit: float32) {.base.} =
   var box = c.actBounds.scale(unit)
-  f.draw(c.text, box.offset(newVector2(0, 6)).location.toPoint(), TEXT_COLOR, scale=ScaleFont(20 / 32 * unit))
+  f.draw(c.text, box.offset(newVector2(0, 6)).location, TEXT_COLOR, scale=ScaleFont(20 / 32 * unit))
 
 proc drawSel*(c: Card, unit: float32, curMode: int) =
   case curMode

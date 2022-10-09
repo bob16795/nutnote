@@ -2,12 +2,18 @@ import parseutils
 var val: string
 
 proc getText*(children: seq[float]): string =
-  var total: float
-  discard parseFloat(val, total)
-  result = val & ": " & $(total * 100).int & "%"
+  if children.len() == 0:
+    var total: float
+    discard parseFloat(val, total)
+    result = val & ": " & $(total * 100).int & "%"
+  else:
+    result = $(children[0] * 100).int & "%"
 
 proc getProgress*(children: seq[float]): float =
-  discard parseFloat(val, result)
+  if children.len() == 0:
+    discard parseFloat(val, result)
+  else:
+    return children[0] 
 
 proc pressKey*(data: string) =
    val = data

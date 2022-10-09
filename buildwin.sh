@@ -1,4 +1,4 @@
-nim c -d:mingw -d:release --opt:speed -d:fontaa --app:gui -o:win/main.exe main
+nim c -d:mingw -d:release -d:ginIcon:$PWD/Aseprite/icon.ico --opt:speed -d:fontaa --app:gui -o:win/main.exe main
 cp content.bin win
 cp stdlib -r win
 cp avg.nim -r win

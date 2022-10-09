@@ -1,16 +1,17 @@
 import hangover
 import json
 import card
-import cards/[todo, note, script]
+import cards/[todo, note, script, image]
+import camera
 import oids
 import native_dialogs
 import tables
 import undo
 import os
 
-var opened: string
+var opened*: string
 
-proc saveCards*(cards: seq[Card], new = false) =
+proc saveCards*(cam: Camera, cards: seq[Card], new = false) =
   var cardData = %*[]
   var wires = %*[]
   for c in cards:
@@ -25,6 +26,13 @@ proc saveCards*(cards: seq[Card], new = false) =
   var jsonData = %*{
     "wires": wires,
     "cards": cardData,
+    "camera": {
+      "zoom": cam.zoomTrg,
+      "position": {
+        "x": cam.pos.x,
+        "y": cam.pos.y,
+      }
+    }
   }
 
   var outfile = opened
@@ -37,7 +45,7 @@ proc saveCards*(cards: seq[Card], new = false) =
   output.write(pretty(jsonData))
   output.close()
 
-proc loadCards*(file: string, icons: Table[string, Sprite]): seq[Card] =
+proc loadCards*(file: string, cam: var Camera, icons: Table[string, Sprite]): seq[Card] =
   var json = parseJson(file)
 
   for c in json["cards"]:
@@ -84,6 +92,15 @@ proc loadCards*(file: string, icons: Table[string, Sprite]): seq[Card] =
         icons[c["kind"].getStr("Note")],
         parseOid(c["id"].getStr()),
         )
+    of "Image":
+      result &= newImageCard(
+        newRect(l["x"].getFloat(), l["y"].getFloat(), l["w"].getFloat(), l["h"].getFloat()),
+        c["file"].getStr(),
+        newPoint(m["x"].getFloat().int,
+                 m["y"].getFloat().int),
+        icons[c["kind"].getStr("Note")],
+        parseOid(c["id"].getStr()),
+        )
     else:
       discard
   
@@ -95,16 +112,24 @@ proc loadCards*(file: string, icons: Table[string, Sprite]): seq[Card] =
             if $c2.id == w["end"].getStr():
               c2.parents &= c1
               break wire
+  if "camera" in json:
+    cam.pos.x = json["camera"]["position"]["x"].getFloat(0)
+    cam.pos.y = json["camera"]["position"]["y"].getFloat(0)
+    cam.target.x = json["camera"]["position"]["x"].getFloat(0)
+    cam.target.y = json["camera"]["position"]["y"].getFloat(0)
+    cam.zoom = json["camera"]["zoom"].getFloat(1)
+    cam.zoomTrg = json["camera"]["zoom"].getFloat(1)
+
   hist.actions = @[]
   hist.actionIdx = 0
         
 
-proc openFile*(cards: var seq[Card], icons: Table[string, Sprite]) =
+proc openFile*(cam: var Camera, cards: var seq[Card], icons: Table[string, Sprite]) =
   var infile = callDialogFileOpen("Select File")
   if infile == "": return
   setCurrentDir(splitFile(infile).dir)
   opened = infile
   
   var input = open(infile, fmRead)
-  cards = loadCards(input.readAll(), icons)
+  cards = loadCards(input.readAll(), cam, icons)
   input.close()

@@ -3,11 +3,13 @@ import content/files
 import src/cards/todo
 import src/cards/note
 import src/cards/script
+import src/cards/image
 import src/textureData
 import src/wires
 import src/saving
 import src/camera as cam
 import src/cursor as cur
+import src/config
 import src/data
 import src/card
 import src/undo
@@ -22,12 +24,6 @@ import sequtils
 import tables
 import math
 import os
-
-type
-  kbMode = enum
-    kbNormal
-    kbEdit
-    kbWire
 
 Game:
   var
@@ -46,6 +42,8 @@ Game:
     dragCamStart: Vector2
     resizeStart: Rect
 
+    moveStart: Vector2
+  
     startText: string
 
     drag: bool
@@ -57,10 +55,10 @@ Game:
     curMode: kbMode
 
     icons: Table[string, Sprite]
-    zoom: float32 = 1.0
-    zoomTrg: float32 = 1.0
 
-  template unit: untyped = zoom * 32
+    fullscreen: bool
+
+  template unit: untyped = camera.zoom * 32
 
   proc keyDownEvent(data: pointer): bool =
     var key = cast[ptr Key](data)[]
@@ -75,17 +73,21 @@ Game:
         of keyW:
           camera.target += newVector2(0, -4)
         of keyA:
-          camera.target += newVector2(-4, 0)
+          if not ctrlMod:
+            camera.target += newVector2(-4, 0)
+          else:
+            for c in cards:
+              c.selected = not shiftMod
         of Key.keyS:
           if ctrlMod:
-            saveCards(cards, shiftMod)
+            saveCards(camera, cards, shiftMod)
           else:
             camera.target += newVector2(0, 4)
         of keyD:
           camera.target += newVector2(4, 0)
         of keyO:
           if ctrlMod:
-            openFile(cards, icons)
+            openFile(camera, cards, icons)
         of keyDelete:
           var delete = cards
           delete.keepItIf(it.selected)
@@ -112,6 +114,8 @@ Game:
               sendEvent(EVENT_SET_LINE_TEXT, addr c.text)
               startText = c.text
               curMode = kbEdit
+        of keyF11:
+          fullscreen = not fullscreen
         of keyR:
           for c in cards:
             if curMode == kbEdit:
@@ -155,7 +159,7 @@ Game:
         of keyEscape:
           curMode = kbNormal
         else: discard
-    var pos = [mousePos.x.float64, mousePos.y.float64]
+    var pos = [mousePos.x.float64 * unit, mousePos.y.float64 * unit]
     sendEvent(EVENT_MOUSE_MOVE, addr pos)
 
   proc lineEnterEvent(data: pointer): bool =
@@ -171,7 +175,7 @@ Game:
     of keyLeftShift, keyRightShift:
       shiftMod = false
     else: discard
-    var pos = [mousePos.x.float64, mousePos.y.float64]
+    var pos = [mousePos.x.float64 * unit, mousePos.y.float64 * unit]
     sendEvent(EVENT_MOUSE_MOVE, addr pos)
 
   proc resizeEvent(data: pointer): bool =
@@ -195,6 +199,7 @@ Game:
           c.selected = c.focused
         for c in cards:
           if c.selected and c.focused:
+            moveStart = mousePos
             cursor.move = true
             resizeStart = c.bounds
             return
@@ -209,7 +214,7 @@ Game:
           cursor.wire = true
           cursor.wireCard = c
           return
-      var bnds = newRect(((mousePos / unit).toPoint()).toVector2(), 10, 1)
+      var bnds = newRect(((mousePos - newVector2(0.5, 0.5)).toPoint()).toVector2(), 10, 1)
       var card: Card
       if shiftMod:
         card = NoteCard(target: bnds, actBounds: bnds, text: "Note Card", minx: 5, miny: 1, icon: icons["Note"], id: genOid())
@@ -217,7 +222,13 @@ Game:
         bnds.height = 2
         var path = callDialogFileOpen("Select File")
         if path == "": return
-        card = newScriptCard(bnds, path, newPoint(5, 2), icons["Script"])
+        case path.splitFile().ext
+        of ".nim":
+          card = newScriptCard(bnds, path, newPoint(5, 2), icons["Script"])
+        of ".png":
+          card = newImageCard(bnds, path, newPoint(5, 2), icons["Image"])
+        else:
+          return
       else:
         card = TodoCard(target: bnds, actBounds: bnds, text: "Todo Card", minx: 5, miny: 1, icon: icons["Todo"], id: genOid())
       hist.addAction(Action(kind: akAdd, addCard: card))
@@ -242,7 +253,7 @@ Game:
         for c in cards:
           if c.focused:
             hist.addAction(Action(kind: akResize, startSize: resizeStart, endSize: c.bounds, resCard: c))
-      var pos = [mousePos.x.float64, mousePos.y.float64]
+      var pos = [mousePos.x.float64 * unit, mousePos.y.float64 * unit]
       sendEvent(EVENT_MOUSE_MOVE, addr pos)
     of 1:
       if cursor.wire:
@@ -262,16 +273,16 @@ Game:
 
   proc mouseScrollEvent(data: pointer): bool =
     var pos = cast[ptr tuple[x, y: float64]](data)[]
-    zoomTrg += pos.x * 5
-    zoomTrg = clamp(zoomTrg, 0.1, 5)
+    camera.zoomTrg += pos.x * 10
+    camera.zoomTrg = clamp(camera.zoomTrg, 0.25, 2.5)
 
   proc mouseMoveEvent(data: pointer): bool =
     var pos_d = cast[ptr tuple[x, y: float64]](data)[]
     var target: Rect
 
-    mousePos = (newPoint(pos_d.x.int, pos_d.y.int)).toVector2()
+    mousePos = newVector2(pos_d.x.float32 / unit, pos_d.y.float32 / unit)
 
-    target.location = (((mousePos + newVector2(0.5, 0.5)) / unit).toPoint()).toVector2()
+    target.location = ((mousePos - newVector2(0.5, 0.5)).toPoint()).toVector2()
     target.size = newVector2(1, 1)
   
     cursor.setTarget(target)
@@ -281,8 +292,11 @@ Game:
     var noresize: bool = true
 
     for c in cards:
-      if c.selected and c.focused and cursor.move:
-        c.bounds.location = target.location
+      if c.selected and cursor.move:
+        c.bounds.location = resizeStart.location - (moveStart - mousePos).toPoint().toVector2()
+        if not cursor.pin:
+          cursor.target = c.bounds
+        return
       if c.focused and cursor.resize and cursor.pin:
         var trg = target.location + target.size - c.bounds.location
         if trg.x < c.minx:
@@ -331,22 +345,23 @@ Game:
     template loadAtlas(name: string, file: string) =
       textures &= newTextureDataMem(file.res.getPointer(), file.res.size.cint, name)
 
-    uiFont = newFont("font.ttf", FONT_SIZE * 2)
+    uiFont = newFont(getAppDir() & "/font.ttf", FONT_SIZE * 2)
     
     textures = newTextureAtlas()
     loadAtlas("8x", "8x.png")
     loadAtlas("32x", "32x.png")
     textures.pack()
 
-    bgSprite   = newSprite(textures["8x"], Sprite8x(0, 2))
+    bgSprite = newSprite(textures["8x"], Sprite8x(0, 2))
     gridSprite = newSprite(textures["32x"], Sprite32x(0, 0))
-    selSprite  = newUISprite(textures["8x"], Sprite8x(0, 1), Center8x(0, 1, 3, 3, 2, 2)).scale(Scale8x(32))
-    curSprite  = newUISprite(textures["8x"], Sprite8x(0, 0), Center8x(0, 0, 3, 3, 2, 2)).scale(Scale8x(32))
-    resSprite  = newUISprite(textures["8x"], Sprite8x(0, 6), Center8x(0, 6, 0, 0, 1, 1)).scale(Scale8x(32))
-    boxSprite  = newUISprite(textures["8x"], Sprite8x(0, 3), Center8x(0, 3, 1, 1, 2, 2)).scale(Scale8x(16))
-    checkSprite= newUISprite(textures["8x"], Sprite8x(0, 5), Center8x(0, 5, 1, 1, 6, 6)).scale(Scale8x(16))
+    selSprite = newUISprite(textures["8x"], Sprite8x(0, 1), Center8x(0, 1, 3, 3, 2, 2)).scale(Scale8x(32))
+    curSprite = newUISprite(textures["8x"], Sprite8x(0, 0), Center8x(0, 0, 3, 3, 2, 2)).scale(Scale8x(32))
+    resSprite = newUISprite(textures["8x"], Sprite8x(0, 6), Center8x(0, 6, 0, 0, 1, 1)).scale(Scale8x(32))
+    boxSprite = newUISprite(textures["8x"], Sprite8x(0, 3), Center8x(0, 3, 1, 1, 2, 2)).scale(Scale8x(16))
+    checkSprite = newUISprite(textures["8x"], Sprite8x(0, 5), Center8x(0, 5, 1, 1, 6, 6)).scale(Scale8x(16))
     icons["Todo"] = newSprite(textures["8x"], Sprite8x(0, 5))
     icons["Script"] = newSprite(textures["8x"], Sprite8x(0, 7))
+    icons["Image"] = newSprite(textures["8x"], Sprite8x(0, 10))
     icons["Note"] = newSprite(textures["8x"], Sprite8x(0, 9))
 
     
@@ -362,19 +377,31 @@ Game:
     createListener(EVENT_LINE_ENTER, lineEnterEvent)
     initWires()
     
+    camera.zoom = 1.0
+    camera.zoomTrg = 1.0
+
+    if paramCount() > 0:
+      var inFile = absolutePath(paramStr(1))
+      setCurrentDir(splitFile(inFile).dir)
+      opened = inFile
+
+      var input = open(inFile, fmRead)
+      cards = loadCards(input.readAll(), camera, icons)
+      input.close()
+    
   proc Update(dt: float, delayed: bool): bool =
     if dt >= CAM_SPEED:
-      zoom = zoomTrg
+      camera.zoom = camera.zoomTrg
     else:
-      zoom += (zoomTrg - zoom) / CAM_SPEED * dt.float32
+      camera.zoom += (camera.zoomTrg - camera.zoom) / CAM_SPEED * dt.float32
 
     for c in cards:
       c.update(dt)
 
     if drag:
-      camera.target = dragCamStart + (dragStart - mousePos) * CAM_DRAG_SPEED / unit
+      camera.target = dragCamStart + dragStart - mousePos
 
-    mousePos += camera.update(dt)
+    mousePos += camera.update(size.toVector2() / unit, dt)
 
     cursor.update(dt)
 
@@ -382,7 +409,7 @@ Game:
 
     selOffset = abs(sin(timer * 4) * unit / 8) + unit / 4
     curOffset = abs(sin(timer * 4) * unit / 8) + unit / 4
-    textureOffset = camera.position * unit
+    textureOffset = camera.position * unit - size.toVector2() / 2
 
     selSprite = selSprite.scale(Scale8x(unit))
     curSprite = curSprite.scale(Scale8x(unit))
@@ -391,16 +418,16 @@ Game:
     checkSprite = checkSprite.scale(Scale8x(unit / 2))
 
   proc Draw(ctx: var GraphicsContext) =
+    ctx.setFullscreen(fullscreen)
     clearBuffer(ctx, BG_COLOR)
 
-    for x in (camera.position.x).toGrid()..(camera.position.x).toGrid() + (size.x.float32 / unit / 4).int + 1:
-      for y in (camera.position.y).toGrid()..(camera.position.y).toGrid() + (size.y.float32 / unit / 4).int + 2:
+    for x in (camera.position.x).toGrid() - (size.x.float32 / unit / 8).int..(camera.position.x).toGrid() + (size.x.float32 / unit / 8).int + 2:
+      for y in (camera.position.y).toGrid() - (size.y.float32 / unit / 8).int..(camera.position.y).toGrid() + (size.y.float32 / unit / 8).int + 2:
         gridSprite.draw(newRect(x.float32 * unit * 4, y.float32 * unit * 4, unit.float32 * 4, unit.float32 * 4), color=GRID_COLOR)
 
     finishDraw()
 
-    for c in cards:
-      c.drawWires(unit)
+    cards.drawWires(unit)
 
     for c in cards:
       c.draw(unit)
@@ -413,8 +440,7 @@ Game:
    
     if curMode == kbWire:
       finishDraw()
-      for c in cards:
-        c.drawWires(unit)
+      cards.drawWires(unit)
 
     cursor.draw(unit)
 
