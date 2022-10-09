@@ -53,7 +53,7 @@ template newBind(nmode: kbMode, keybind: Key, a, s, c: bool, act: kbAction): unt
   )
 
 const
-  defaultBinds*: seq[kbBind] = @[
+  defaultBinds* = [
     newBind(kbNormal, keyW, false, false, false, kbAction(kind: kakMove, moveDir: newPoint(0, -4))),
     newBind(kbNormal, keyA, false, false, false, kbAction(kind: kakMove, moveDir: newPoint(-4, 0))),
     newBind(kbNormal, keyS, false, false, false, kbAction(kind: kakMove, moveDir: newPoint(0, 4))),

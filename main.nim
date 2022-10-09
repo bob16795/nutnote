@@ -9,7 +9,7 @@ import src/wires
 import src/saving
 import src/camera as cam
 import src/cursor as cur
-import src/config
+import src/cfg
 import src/data
 import src/card
 import src/undo
@@ -57,110 +57,81 @@ Game:
     icons: Table[string, Sprite]
 
     fullscreen: bool
+    binds: seq[kbBind]
 
   template unit: untyped = camera.zoom * 32
 
   proc keyDownEvent(data: pointer): bool =
     var key = cast[ptr Key](data)[]
 
-    case curMode:
-      of kbNormal:
-        case key
-        of keyLeftControl, keyRightControl:
-          ctrlMod = true
-        of keyLeftShift, keyRightShift:
-          shiftMod = true
-        of keyW:
-          camera.target += newVector2(0, -4)
-        of keyA:
-          if not ctrlMod:
-            camera.target += newVector2(-4, 0)
-          else:
+    case key
+    of keyLeftControl, keyRightControl:
+      ctrlMod = true
+    of keyLeftShift, keyRightShift:
+      shiftMod = true
+    of keyEnter:
+      if curMode == kbEdit:
+        for c in cards:
+          if c.selected:
+            var data = c.text & "\n"
+            c.pressKey(data)
+            sendEvent(EVENT_SET_LINE_TEXT, addr data)
+    else: discard
+    
+    for b in binds:
+      if curMode == b.mode and
+         shiftMod == b.mods.shift and
+         ctrlMod == b.mods.ctrl and
+         key == b.key:
+        case b.action.kind:
+          of kakMove:
+            camera.target += b.action.moveDir.toVector2()
+          of kakSelect:
             for c in cards:
-              c.selected = not shiftMod
-        of Key.keyS:
-          if ctrlMod:
-            saveCards(camera, cards, shiftMod)
-          else:
-            camera.target += newVector2(0, 4)
-        of keyD:
-          camera.target += newVector2(4, 0)
-        of keyO:
-          if ctrlMod:
-            openFile(camera, cards, icons)
-        of keyDelete:
-          var delete = cards
-          delete.keepItIf(it.selected)
-          if delete != @[]:
-            cards.keepItIf(not it.selected)
+              c.selected = b.action.selAll
+          of kakFile:
+            if b.action.fileOpen:
+              openFile(camera, cards, icons)
+            else:
+              saveCards(camera, cards, shiftMod)
+          of kakDelete:
+            var delete = cards
+            delete.keepItIf(it.selected)
+            if delete != @[]:
+              cards.keepItIf(not it.selected)
+              for c in cards:
+                c.parents.keepItIf(not it.selected)
+              hist.addAction(Action(kind: akDelete, delCards: delete))
+          of kakHist:
+            if b.action.histUndo:
+              hist.undo(cards)
+            else:
+              hist.redo(cards)
+          of kakMode:
+            curMode = b.action.mode
+          of kakEdit:
             for c in cards:
-              c.parents.keepItIf(not it.selected)
-            hist.addAction(Action(kind: akDelete, delCards: delete))
-        of keyZ:
-          if ctrlMod:
-            if shiftMod: hist.redo(cards)
-            else: hist.undo(cards)
-        of keyY:
-          if ctrlMod:
-            hist.redo(cards)
-        of keyV:
-          curMode = kbWire
-        of keyE:
-          for c in cards:
-            if curMode == kbEdit:
-              c.selected = false
-            if c.selected:
-              sendEvent(EVENT_START_LINE_ENTER, nil)
-              sendEvent(EVENT_SET_LINE_TEXT, addr c.text)
-              startText = c.text
-              curMode = kbEdit
-        of keyF11:
-          fullscreen = not fullscreen
-        of keyR:
-          for c in cards:
-            if curMode == kbEdit:
-              c.selected = false
-            if c.selected:
-              c.text = ""
-              sendEvent(EVENT_START_LINE_ENTER, nil)
-              sendEvent(EVENT_SET_LINE_TEXT, addr c.text)
-              startText = ""
-              curMode = kbEdit
-        of keySpace:
-          for c in cards:
-            if c.selected:
-              try:
-                c.TodoCard.done = not c.TodoCard.done
-              except:
-                discard
-        else: discard
-      of kbEdit:
-        case key
-        of keyEnter:
-          for c in cards:
-            if c.selected:
-              var data = c.text & "\n"
-              c.pressKey(data)
-              sendEvent(EVENT_SET_LINE_TEXT, addr data)
-        of keyEscape:
-          curMode = kbNormal
-          sendEvent(EVENT_STOP_LINE_ENTER, nil)
-          for c in cards:
-            if c.selected:
-              hist.addAction(Action(kind: akChange, changeBefore: startText, changeAfter: c.text, changeCard: c))
-          return
-        of keyLeftControl, keyRightControl:
-          ctrlMod = true
-        of keyLeftShift, keyRightShift:
-          shiftMod = true
-        else: discard
-      of kbWire:
-        case key
-        of keyEscape:
-          curMode = kbNormal
-        else: discard
-    var pos = [mousePos.x.float64 * unit, mousePos.y.float64 * unit]
-    sendEvent(EVENT_MOUSE_MOVE, addr pos)
+              if curMode == kbEdit:
+                c.selected = false
+              if c.selected:
+                if b.action.editClear:
+                  c.text = ""
+                sendEvent(EVENT_START_LINE_ENTER, nil)
+                sendEvent(EVENT_SET_LINE_TEXT, addr c.text)
+                startText = c.text
+                curMode = kbEdit
+          of kakFullscreen:
+            fullscreen = not fullscreen
+          of kakToggle:
+            for c in cards:
+              if c.selected:
+                try:
+                  c.TodoCard.done = not c.TodoCard.done
+                except:
+                  discard
+        var pos = [mousePos.x.float64 * unit, mousePos.y.float64 * unit]
+        sendEvent(EVENT_MOUSE_MOVE, addr pos)
+        return
 
   proc lineEnterEvent(data: pointer): bool =
     for c in cards:
@@ -388,6 +359,8 @@ Game:
       var input = open(inFile, fmRead)
       cards = loadCards(input.readAll(), camera, icons)
       input.close()
+    
+    binds &= defaultBinds
     
   proc Update(dt: float, delayed: bool): bool =
     if dt >= CAM_SPEED:
