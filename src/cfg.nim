@@ -148,7 +148,7 @@ proc sourceFile*(file: string) =
     binds &= newBind(modeId, keycode, 'A' in keyMods, 'S' in keyMods, 'C' in keyMods, getAction(action))
 
   proc hiMode(mode, r, g, b: int) =
-    modes[mode].color = newColor(r, g, b)
+    modes[mode].color = newColor(r.uint8, g.uint8, b.uint8)
 
   proc source(file: string) =
     sourceFile(file)

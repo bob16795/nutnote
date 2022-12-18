@@ -6,6 +6,7 @@ import src/cards/script
 import src/cards/image
 import src/textureData
 import src/wires
+import src/status
 import src/saving
 import src/camera as cam
 import src/cursor as cur
@@ -127,6 +128,7 @@ Game:
                 startText = c.text
                 sel = true
           else:
+            sendEvent(EVENT_STOP_LINE_ENTER, nil)
             for c in cards:
               if c.selected and startText != c.text:
                 hist.addAction(Action(kind: akChange, changeBefore: startText, changeAfter: c.text, changeCard: c))
