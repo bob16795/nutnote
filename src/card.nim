@@ -25,12 +25,8 @@ type
     icon*: Sprite
 
     parents*: seq[Card]
-
-proc scale*(r: Rect, scale: float32): Rect =
-  result.size = r.size * scale
-  result.location = r.location * scale
-
-proc `bounds=`*(c: Card, r: Rect) =
+    
+template `bounds=`*(c: Card, r: Rect) =
   c.target = r
 
 template bounds*(c: Card): Rect =
@@ -83,31 +79,12 @@ method drawText*(c: Card, f: Font, unit: float32) {.base.} =
   var box = c.actBounds.scale(unit)
   f.draw(c.text, box.offset(newVector2(0, 6)).location, TEXT_COLOR, scale=ScaleFont(20 / 32 * unit))
 
-proc drawSel*(c: Card, unit: float32, curMode: int) =
-  case curMode
-  of 0:
-    if c.selected:
-      var box = c.actBounds.scale(unit)
-      box.location = box.location - newVector2(selOffset, selOffset)
-      box.size = box.size + newVector2(selOffset, selOffset) * 2
-
-      selSprite.draw(box, c=SEL_COLOR)
-  of 1:
-    if c.selected:
-      var box = c.actBounds.scale(unit)
-      box.location = box.location - newVector2(selOffset, selOffset)
-      box.size = box.size + newVector2(selOffset, selOffset) * 2
-
-      selSprite.draw(box, c=EDIT_COLOR)
-  of 2:
-    if c.selected:
-      var box = c.actBounds.scale(unit)
-      box.location = box.location - newVector2(selOffset, selOffset)
-      box.size = box.size + newVector2(selOffset, selOffset) * 2
-
-      selSprite.draw(box, c=WIRE_COLOR)
-  else:
-    discard
+proc drawSel*(c: Card, unit: float32, selColor: Color) =
+  if c.selected:
+    var box = c.actBounds.scale(unit)
+    box.location = box.location - newVector2(selOffset, selOffset)
+    box.size = box.size + newVector2(selOffset, selOffset) * 2
+    selSprite.draw(box, selColor)
 
 method `$$`*(c: Card): JsonNode =
   return %*{

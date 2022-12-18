@@ -1,0 +1,382 @@
+{
+  "wires": [
+    {
+      "start": "63433eeb7e413893bc5eb40d",
+      "end": "63433eb77e413893bc5eb40b"
+    },
+    {
+      "start": "6343408c7e413893bc5eb420",
+      "end": "63433eeb7e413893bc5eb40d"
+    },
+    {
+      "start": "63433eb77e413893bc5eb40b",
+      "end": "63433efd7e413893bc5eb40e"
+    },
+    {
+      "start": "63433f8d7e413893bc5eb411",
+      "end": "63433f3b7e413893bc5eb40f"
+    },
+    {
+      "start": "63433eb77e413893bc5eb40b",
+      "end": "63433f8d7e413893bc5eb411"
+    },
+    {
+      "start": "63433f8d7e413893bc5eb411",
+      "end": "63433fd67e413893bc5eb415"
+    },
+    {
+      "start": "63433f3b7e413893bc5eb40f",
+      "end": "6343400a7e413893bc5eb419"
+    },
+    {
+      "start": "63433f3b7e413893bc5eb40f",
+      "end": "6343402e7e413893bc5eb41e"
+    },
+    {
+      "start": "63433efd7e413893bc5eb40e",
+      "end": "634340637e413893bc5eb41f"
+    },
+    {
+      "start": "63433e6d7e413893bc5eb407",
+      "end": "6343408c7e413893bc5eb420"
+    },
+    {
+      "start": "6343408c7e413893bc5eb420",
+      "end": "634340eb7e413893bc5eb422"
+    },
+    {
+      "start": "634340eb7e413893bc5eb422",
+      "end": "634341097e413893bc5eb424"
+    },
+    {
+      "start": "63433fd67e413893bc5eb415",
+      "end": "634341927e413893bc5eb428"
+    },
+    {
+      "start": "639e591b1b7a8334eddbe608",
+      "end": "639e59111b7a8334eddbe606"
+    },
+    {
+      "start": "639e59161b7a8334eddbe607",
+      "end": "639e59111b7a8334eddbe606"
+    },
+    {
+      "start": "63433fd67e413893bc5eb415",
+      "end": "639e59416c72bc1fee1551d8"
+    }
+  ],
+  "cards": [
+    {
+      "id": "63433e6d7e413893bc5eb407",
+      "kind": "Note",
+      "text": "Nutnote example file\nThis file is full of examples of how\nto use nut note.",
+      "location": {
+        "x": -23.0,
+        "y": -6.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63433eb77e413893bc5eb40b",
+      "kind": "Note",
+      "text": "Todo cards\nYou can create todo cards by\nright clicking the background.",
+      "location": {
+        "x": 25.0,
+        "y": -6.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63433eeb7e413893bc5eb40d",
+      "kind": "Note",
+      "text": "Note cards\nYou can create a note card by\nholding shift while you right click\nthe background",
+      "location": {
+        "x": 9.0,
+        "y": -6.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63433efd7e413893bc5eb40e",
+      "kind": "Note",
+      "text": "Editing Cards\nyou can edit a card by pressing E\nby default, or by pressing R to \nclear the card first.",
+      "location": {
+        "x": 25.0,
+        "y": -1.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63433f3b7e413893bc5eb40f",
+      "kind": "Note",
+      "text": "Script cards\nYou can create a script card by\nselecting a .NIM file in the create\nmenu.",
+      "location": {
+        "x": 41.0,
+        "y": -1.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63433f8d7e413893bc5eb411",
+      "kind": "Note",
+      "text": "File cards\nyou can create a file card by\nholding control while you right\nclick the background",
+      "location": {
+        "x": 41.0,
+        "y": -6.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63433fc17e413893bc5eb413",
+      "kind": "Note",
+      "text": "Note Card",
+      "location": {
+        "x": 9.0,
+        "y": -8.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63433fc67e413893bc5eb414",
+      "kind": "Todo",
+      "text": "Todo Card",
+      "done": false,
+      "location": {
+        "x": 25.0,
+        "y": -8.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63433fd67e413893bc5eb415",
+      "kind": "Note",
+      "text": "Wiring\nyou can wire cards by right\nclicking them then dragging to\nanother card.",
+      "location": {
+        "x": 56.0,
+        "y": -6.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "6343400a7e413893bc5eb419",
+      "kind": "Script",
+      "text": "100%",
+      "file": "scripts/avg.nim",
+      "location": {
+        "x": 41.0,
+        "y": 3.0,
+        "w": 10.0,
+        "h": 2.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 2.0
+      }
+    },
+    {
+      "id": "6343402e7e413893bc5eb41e",
+      "kind": "Note",
+      "text": "Image cards\nYou can create an image card by\nselecting a .PNG file in the create\nmenu.",
+      "location": {
+        "x": 41.0,
+        "y": 8.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "634340637e413893bc5eb41f",
+      "kind": "Note",
+      "text": "Toggleing cards\nYou can toggle a card by pressing\nspace by default.",
+      "location": {
+        "x": 25.0,
+        "y": 8.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "6343408c7e413893bc5eb420",
+      "kind": "Note",
+      "text": "Selection\nYou can select a card by clicking\nit. You can select multiple by\nclicking and dragging.",
+      "location": {
+        "x": -7.0,
+        "y": -6.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "634340eb7e413893bc5eb422",
+      "kind": "Note",
+      "text": "Moving cards\nYou can move a card by dragging\nit.",
+      "location": {
+        "x": -7.0,
+        "y": -1.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "634341097e413893bc5eb424",
+      "kind": "Note",
+      "text": "Resizing cards\nYou can resize a card by dragging\nthe corner.",
+      "location": {
+        "x": -7.0,
+        "y": 4.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "634341927e413893bc5eb428",
+      "kind": "Note",
+      "text": "Wire view mode\nyou can view wires ontop of cards\nby pressing V. Press escape to\nleave wire mode.",
+      "location": {
+        "x": 56.0,
+        "y": -1.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "639e59111b7a8334eddbe606",
+      "kind": "Todo",
+      "text": "Todo Card",
+      "done": true,
+      "location": {
+        "x": 25.0,
+        "y": 13.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "639e59161b7a8334eddbe607",
+      "kind": "Todo",
+      "text": "Todo Card",
+      "done": true,
+      "location": {
+        "x": 26.0,
+        "y": 14.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "639e591b1b7a8334eddbe608",
+      "kind": "Todo",
+      "text": "Todo Card",
+      "done": false,
+      "location": {
+        "x": 26.0,
+        "y": 15.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "639e59416c72bc1fee1551d8",
+      "kind": "Note",
+      "text": "Keybinds\nyou can change keybinds by\nediting the nnrc.nim file.",
+      "location": {
+        "x": 71.0,
+        "y": -6.0,
+        "w": 10.0,
+        "h": 4.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    }
+  ],
+  "camera": {
+    "zoom": 0.5625,
+    "position": {
+      "x": 36.98004913330078,
+      "y": 0.3995535373687744
+    }
+  }
+}

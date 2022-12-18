@@ -96,6 +96,7 @@ proc loadCards*(file: string, cam: var Camera, icons: Table[string, Sprite]): se
       result &= newImageCard(
         newRect(l["x"].getFloat(), l["y"].getFloat(), l["w"].getFloat(), l["h"].getFloat()),
         c["file"].getStr(),
+        c["text"].getStr(),
         newPoint(m["x"].getFloat().int,
                  m["y"].getFloat().int),
         icons[c["kind"].getStr("Note")],

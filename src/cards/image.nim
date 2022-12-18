@@ -38,18 +38,20 @@ method drawText*(c: ImageCard, f: Font, unit: float32) =
 method postUpdate*(c: ImageCard, dt: float32) =
   c.progress = 1
 
-proc newImageCard*(bounds: Rect, file: string, min: Point, icon: Sprite, oid: Oid = Oid()): ImageCard =
+proc newImageCard*(bounds: Rect, file: string, text: string, min: Point, icon: Sprite, oid: Oid = Oid()): ImageCard =
   result = ImageCard()
   if oid == Oid():
     result.id = genOid()
     result.icon = icon
     result.file = file.relativePath(getCurrentDir())
+    result.text = text
     result.texture = newTexture(file)
     var b = bounds
     var h = (bounds.width / result.texture.size.x * result.texture.size.y).int
-    b.height = h.float32
+    b.height = h.float32 + 1
     result.minx = min.x.float32
     result.miny = min.x.float32 / result.texture.size.x * result.texture.size.x
+    result.miny += 1
 
     result.target = b
     result.actBounds = b

@@ -52,14 +52,98 @@ Game:
     ctrlMod: bool
     shiftMod: bool
 
-    curMode: kbMode
+    curMode: int
 
     icons: Table[string, Sprite]
 
     fullscreen: bool
-    binds: seq[kbBind]
 
   template unit: untyped = camera.zoom * 32
+    
+  proc runAction(action: kbAction) =
+    case action.kind:
+      of kakNull:
+        discard
+      of kakCall:
+        action.callProc()
+      of kakMove:
+        camera.target += action.moveDir.toVector2()
+      of kakSelect:
+        for c in cards:
+          c.selected = action.selAll
+      of kakFile:
+        if action.fileOpen:
+          openFile(camera, cards, icons)
+        else:
+          saveCards(camera, cards, shiftMod)
+      of kakDelete:
+        var delete = cards
+        delete.keepItIf(it.selected)
+        if delete != @[]:
+          cards.keepItIf(not it.selected)
+          for c in cards:
+            c.parents.keepItIf(not it.selected)
+          hist.addAction(Action(kind: akDelete, delCards: delete))
+      of kakHist:
+        if action.histUndo:
+          hist.undo(cards)
+        else:
+          hist.redo(cards)
+      of kakText:
+        var sel: bool
+        for c in cards:
+          c.selected = c.selected and not sel
+          if c.selected:
+            if modes[curMode].editing:
+              c.text = action.text
+              sendEvent(EVENT_SET_LINE_TEXT, addr c.text)
+            else:
+              startText = c.text
+              c.text = action.text
+            sel = true
+            hist.addAction(Action(kind: akChange, changeBefore: startText, changeAfter: c.text, changeCard: c))
+      of kakClear:
+        var sel: bool
+        for c in cards:
+          c.selected = c.selected and not sel
+          if c.selected:
+            if modes[curMode].editing:
+              c.text = ""
+              sendEvent(EVENT_SET_LINE_TEXT, addr c.text)
+            else:
+              startText = c.text
+              c.text = ""
+            sel = true
+            hist.addAction(Action(kind: akChange, changeBefore: startText, changeAfter: c.text, changeCard: c))
+      of kakMode:
+        if modes[curMode].editing != modes[action.mode].editing:
+          if modes[action.mode].editing:
+            var sel: bool
+            for c in cards:
+              c.selected = c.selected and not sel
+              if c.selected:
+                sendEvent(EVENT_START_LINE_ENTER, nil)
+                sendEvent(EVENT_SET_LINE_TEXT, addr c.text)
+                startText = c.text
+                sel = true
+          else:
+            for c in cards:
+              if c.selected and startText != c.text:
+                hist.addAction(Action(kind: akChange, changeBefore: startText, changeAfter: c.text, changeCard: c))
+        curMode = action.mode
+      of kakFullscreen:
+        fullscreen = not fullscreen
+      of kakToggle:
+        for c in cards:
+          if c.selected:
+            try:
+              c.TodoCard.done = not c.TodoCard.done
+            except:
+              discard
+      of kakClipboard:
+        discard
+    var pos = [mousePos.x.float64 * unit, mousePos.y.float64 * unit]
+    sendEvent(EVENT_MOUSE_MOVE, addr pos)
 
   proc keyDownEvent(data: pointer): bool =
     var key = cast[ptr Key](data)[]
@@ -70,7 +154,7 @@ Game:
     of keyLeftShift, keyRightShift:
       shiftMod = true
     of keyEnter:
-      if curMode == kbEdit:
+      if modes[curMode].editing:
         for c in cards:
           if c.selected:
             var data = c.text & "\n"
@@ -83,55 +167,7 @@ Game:
          shiftMod == b.mods.shift and
          ctrlMod == b.mods.ctrl and
          key == b.key:
-        case b.action.kind:
-          of kakMove:
-            camera.target += b.action.moveDir.toVector2()
-          of kakSelect:
-            for c in cards:
-              c.selected = b.action.selAll
-          of kakFile:
-            if b.action.fileOpen:
-              openFile(camera, cards, icons)
-            else:
-              saveCards(camera, cards, shiftMod)
-          of kakDelete:
-            var delete = cards
-            delete.keepItIf(it.selected)
-            if delete != @[]:
-              cards.keepItIf(not it.selected)
-              for c in cards:
-                c.parents.keepItIf(not it.selected)
-              hist.addAction(Action(kind: akDelete, delCards: delete))
-          of kakHist:
-            if b.action.histUndo:
-              hist.undo(cards)
-            else:
-              hist.redo(cards)
-          of kakMode:
-            curMode = b.action.mode
-          of kakEdit:
-            for c in cards:
-              if curMode == kbEdit:
-                c.selected = false
-              if c.selected:
-                if b.action.editClear:
-                  c.text = ""
-                sendEvent(EVENT_START_LINE_ENTER, nil)
-                sendEvent(EVENT_SET_LINE_TEXT, addr c.text)
-                startText = c.text
-                curMode = kbEdit
-          of kakFullscreen:
-            fullscreen = not fullscreen
-          of kakToggle:
-            for c in cards:
-              if c.selected:
-                try:
-                  c.TodoCard.done = not c.TodoCard.done
-                except:
-                  discard
-        var pos = [mousePos.x.float64 * unit, mousePos.y.float64 * unit]
-        sendEvent(EVENT_MOUSE_MOVE, addr pos)
-        return
+          runAction(b.action)
 
   proc lineEnterEvent(data: pointer): bool =
     for c in cards:
@@ -157,8 +193,8 @@ Game:
 
   proc mousePressEvent(data: pointer): bool =
     var btn = cast[ptr int](data)[]
-    if curMode == kbEdit:
-      curMode = kbNormal
+    if curMode != 0:
+      curMode = 0
       sendEvent(EVENT_STOP_LINE_ENTER, nil)
       for c in cards:
         if c.selected:
@@ -197,7 +233,7 @@ Game:
         of ".nim":
           card = newScriptCard(bnds, path, newPoint(5, 2), icons["Script"])
         of ".png":
-          card = newImageCard(bnds, path, newPoint(5, 2), icons["Image"])
+          card = newImageCard(bnds, path, "", newPoint(5, 2), icons["Image"])
         else:
           return
       else:
@@ -329,7 +365,7 @@ Game:
     curSprite = newUISprite(textures["8x"], Sprite8x(0, 0), Center8x(0, 0, 3, 3, 2, 2)).scale(Scale8x(32))
     resSprite = newUISprite(textures["8x"], Sprite8x(0, 6), Center8x(0, 6, 0, 0, 1, 1)).scale(Scale8x(32))
     boxSprite = newUISprite(textures["8x"], Sprite8x(0, 3), Center8x(0, 3, 1, 1, 2, 2)).scale(Scale8x(16))
-    checkSprite = newUISprite(textures["8x"], Sprite8x(0, 5), Center8x(0, 5, 1, 1, 6, 6)).scale(Scale8x(16))
+    checkSprite = newSprite(textures["8x"], Sprite8x(0, 4))
     icons["Todo"] = newSprite(textures["8x"], Sprite8x(0, 5))
     icons["Script"] = newSprite(textures["8x"], Sprite8x(0, 7))
     icons["Image"] = newSprite(textures["8x"], Sprite8x(0, 10))
@@ -359,8 +395,9 @@ Game:
       var input = open(inFile, fmRead)
       cards = loadCards(input.readAll(), camera, icons)
       input.close()
-    
-    binds &= defaultBinds
+
+    runActionThing = runAction
+    sourceFile(getAppDir() / "nutnoterc.nim")
     
   proc Update(dt: float, delayed: bool): bool =
     if dt >= CAM_SPEED:
@@ -388,11 +425,10 @@ Game:
     curSprite = curSprite.scale(Scale8x(unit))
     resSprite = resSprite.scale(Scale8x(unit))
     boxSprite = boxSprite.scale(Scale8x(unit / 2))
-    checkSprite = checkSprite.scale(Scale8x(unit / 2))
 
   proc Draw(ctx: var GraphicsContext) =
     ctx.setFullscreen(fullscreen)
-    clearBuffer(ctx, BG_COLOR)
+    ctx.clearBuffer(BG_COLOR)
 
     for x in (camera.position.x).toGrid() - (size.x.float32 / unit / 8).int..(camera.position.x).toGrid() + (size.x.float32 / unit / 8).int + 2:
       for y in (camera.position.y).toGrid() - (size.y.float32 / unit / 8).int..(camera.position.y).toGrid() + (size.y.float32 / unit / 8).int + 2:
@@ -400,7 +436,10 @@ Game:
 
     finishDraw()
 
-    cards.drawWires(unit)
+    drawStatus()
+
+    if not modes[curMode].wiresAbove:
+      cards.drawWires(unit)
 
     for c in cards:
       c.draw(unit)
@@ -409,9 +448,9 @@ Game:
       c.drawText(uiFont, unit)
 
     for c in cards:
-      c.drawSel(unit, ord(curMode))
+      c.drawSel(unit, modes[curMode].color)
    
-    if curMode == kbWire:
+    if modes[curMode].wiresAbove:
       finishDraw()
       cards.drawWires(unit)
 

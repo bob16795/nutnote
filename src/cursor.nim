@@ -57,6 +57,6 @@ proc draw*(c: Cursor, unit: float32) =
   box.location = box.location - newVector2(curOffset, curOffset)
   box.size = box.size + newVector2(curOffset, curOffset) * 2
   if c.resize:
-    resSprite.draw(box, c=SEL_COLOR)
+    resSprite.draw(box, c=newColor(255, 255, 255))
   else:
-    curSprite.draw(box, c=SEL_COLOR)
+    curSprite.draw(box, c=newColor(255, 255, 255))

@@ -1,1 +1,1 @@
-nim c -d:release --opt:speed -d:fontaa --app:gui -r main
+nim c -d:release --opt:speed -d:fontaa --app:gui --deepcopy:on -r main
