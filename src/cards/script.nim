@@ -16,16 +16,16 @@ type
 method pressKey*(c: ScriptCard, text: string) =
   c.inter.invoke(pressKey, text)
   
-method drawText*(c: ScriptCard, f: Font, unit: float32) =
+method drawText*(c: ScriptCard, f: Font, unit: float32, textColor: Color) =
   var box = c.actBounds.scale(unit)
-  f.draw(c.file, box.offset(newVector2(38 / 32 * unit, 6 / 32 * unit)).location, TEXT_COLOR, scale=ScaleFont(20 / 32 * unit))
+  f.draw(c.file, box.offset(newVector2(38 / 32 * unit, 6 / 32 * unit)).location, textColor, scale=ScaleFont(20 / 32 * unit))
   var y = 1
   for line in c.text.split("\n"):
     if y >= c.bounds.height.int:
       return
     var box = c.actBounds
     box = box.offset(newVector2(0, y)).scale(unit)
-    f.draw(line, box.offset(newVector2(4 / 32 * unit, 6 / 32 * unit)).location, TEXT_COLOR, scale=ScaleFont(20 / 32 * unit))
+    f.draw(line, box.offset(newVector2(4 / 32 * unit, 6 / 32 * unit)).location, textColor, scale=ScaleFont(20 / 32 * unit))
     y += 1
 
 method postUpdate*(c: ScriptCard, dt: float32) =

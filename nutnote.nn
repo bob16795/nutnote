@@ -9,19 +9,7 @@
       "end": "633b034a16b0acd686a49e0e"
     },
     {
-      "start": "633b02fba1e920aa069f7255",
-      "end": "633b0c4988f339ada1f286fe"
-    },
-    {
       "start": "633b0303a1e920aa069f7256",
-      "end": "633b0c4988f339ada1f286fe"
-    },
-    {
-      "start": "633b0e1b88f339ada1f28712",
-      "end": "633b0c4988f339ada1f286fe"
-    },
-    {
-      "start": "633b0e6a88f339ada1f2871d",
       "end": "633b0c4988f339ada1f286fe"
     },
     {
@@ -29,12 +17,8 @@
       "end": "633b0c4988f339ada1f286fe"
     },
     {
-      "start": "633b27a3d915f13261f8e7bc",
+      "start": "633b27f4d915f13261f8e7be",
       "end": "633b0c4988f339ada1f286fe"
-    },
-    {
-      "start": "633b0255a1e920aa069f7249",
-      "end": "633b0c4b88f339ada1f286ff"
     },
     {
       "start": "633b0ca088f339ada1f28703",
@@ -49,19 +33,11 @@
       "end": "633b0c4b88f339ada1f286ff"
     },
     {
-      "start": "634213866b8a88d3b205ad30",
-      "end": "633b0c4b88f339ada1f286ff"
-    },
-    {
       "start": "633b029ea1e920aa069f724c",
       "end": "633b0c4b88f339ada1f28700"
     },
     {
       "start": "633b030ea1e920aa069f7257",
-      "end": "633b0c4b88f339ada1f28700"
-    },
-    {
-      "start": "6341a7bb6345c55c64e54e81",
       "end": "633b0c4b88f339ada1f28700"
     },
     {
@@ -123,6 +99,74 @@
     {
       "start": "633b02cfa1e920aa069f7252",
       "end": "6341a8616345c55c64e54e87"
+    },
+    {
+      "start": "63adea83850f241cd3e1a125",
+      "end": "639e651a310e48b98f6d97e7"
+    },
+    {
+      "start": "63adeaba850f241cd3e1a129",
+      "end": "63adea83850f241cd3e1a125"
+    },
+    {
+      "start": "63adeadf850f241cd3e1a12a",
+      "end": "63adea83850f241cd3e1a125"
+    },
+    {
+      "start": "63adeb1a850f241cd3e1a12c",
+      "end": "63adea83850f241cd3e1a125"
+    },
+    {
+      "start": "63adeba7850f241cd3e1a130",
+      "end": "63adea83850f241cd3e1a125"
+    },
+    {
+      "start": "63adeaa4850f241cd3e1a127",
+      "end": "63adeaba850f241cd3e1a129"
+    },
+    {
+      "start": "63420fc748cc8e7298337767",
+      "end": "63adeaba850f241cd3e1a129"
+    },
+    {
+      "start": "633b02fba1e920aa069f7255",
+      "end": "63adeaba850f241cd3e1a129"
+    },
+    {
+      "start": "634213866b8a88d3b205ad30",
+      "end": "63adeadf850f241cd3e1a12a"
+    },
+    {
+      "start": "633b021da1e920aa069f7244",
+      "end": "63adeadf850f241cd3e1a12a"
+    },
+    {
+      "start": "6341a8316345c55c64e54e86",
+      "end": "63adeadf850f241cd3e1a12a"
+    },
+    {
+      "start": "6341a7bb6345c55c64e54e81",
+      "end": "63adeadf850f241cd3e1a12a"
+    },
+    {
+      "start": "633b0255a1e920aa069f7249",
+      "end": "63adeadf850f241cd3e1a12a"
+    },
+    {
+      "start": "633b0e6a88f339ada1f2871d",
+      "end": "63adeadf850f241cd3e1a12a"
+    },
+    {
+      "start": "633b27a3d915f13261f8e7bc",
+      "end": "63adeb1a850f241cd3e1a12c"
+    },
+    {
+      "start": "633b0e1b88f339ada1f28712",
+      "end": "63adeb1a850f241cd3e1a12c"
+    },
+    {
+      "start": "63adebac850f241cd3e1a131",
+      "end": "63adeba7850f241cd3e1a130"
     }
   ],
   "cards": [
@@ -132,7 +176,7 @@
       "text": "Nutnote Todo\nCompletion",
       "location": {
         "x": 20.0,
-        "y": 4.0,
+        "y": 2.0,
         "w": 10.0,
         "h": 2.0
       },
@@ -162,8 +206,8 @@
       "text": "Multi move\n",
       "done": false,
       "location": {
-        "x": -1.0,
-        "y": 18.0,
+        "x": 33.0,
+        "y": 21.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -176,10 +220,10 @@
       "id": "633b0255a1e920aa069f7249",
       "kind": "Todo",
       "text": "Copy paste",
-      "done": true,
+      "done": false,
       "location": {
         "x": 33.0,
-        "y": 15.0,
+        "y": 24.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -257,7 +301,7 @@
       "done": false,
       "location": {
         "x": 21.0,
-        "y": 15.0,
+        "y": 22.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -445,7 +489,7 @@
       "id": "633b0d2888f339ada1f28705",
       "kind": "Todo",
       "text": "Description",
-      "done": false,
+      "done": true,
       "location": {
         "x": 10.0,
         "y": 4.0,
@@ -461,7 +505,7 @@
       "id": "633b0d3b88f339ada1f28707",
       "kind": "Todo",
       "text": "Help system",
-      "done": false,
+      "done": true,
       "location": {
         "x": 9.0,
         "y": 5.0,
@@ -477,7 +521,7 @@
       "id": "633b0d4888f339ada1f28708",
       "kind": "Todo",
       "text": "MVP",
-      "done": false,
+      "done": true,
       "location": {
         "x": 9.0,
         "y": 6.0,
@@ -526,7 +570,7 @@
       "text": "Frame card",
       "done": false,
       "location": {
-        "x": -1.0,
+        "x": -2.0,
         "y": 15.0,
         "w": 10.0,
         "h": 1.0
@@ -542,7 +586,7 @@
       "text": "Panel / group cards",
       "done": false,
       "location": {
-        "x": -1.0,
+        "x": -2.0,
         "y": 11.0,
         "w": 10.0,
         "h": 1.0
@@ -588,10 +632,10 @@
       "id": "633b0e1b88f339ada1f28712",
       "kind": "Todo",
       "text": "Todo undo",
-      "done": false,
+      "done": true,
       "location": {
-        "x": 21.0,
-        "y": 13.0,
+        "x": 46.0,
+        "y": 21.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -606,8 +650,8 @@
       "text": "Script Errors",
       "done": false,
       "location": {
-        "x": 21.0,
-        "y": 14.0,
+        "x": 33.0,
+        "y": 25.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -654,7 +698,7 @@
       "text": "Change  script / image",
       "done": false,
       "location": {
-        "x": -1.0,
+        "x": -2.0,
         "y": 12.0,
         "w": 10.0,
         "h": 1.0
@@ -670,8 +714,8 @@
       "text": "Cut overflow",
       "done": false,
       "location": {
-        "x": 21.0,
-        "y": 16.0,
+        "x": 46.0,
+        "y": 20.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -683,11 +727,11 @@
     {
       "id": "633b27f4d915f13261f8e7be",
       "kind": "Todo",
-      "text": "rc file",
-      "done": false,
+      "text": "Note Card",
+      "done": true,
       "location": {
-        "x": -1.0,
-        "y": 17.0,
+        "x": 21.0,
+        "y": 13.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -750,7 +794,7 @@
       "text": "Connected cards",
       "done": false,
       "location": {
-        "x": -1.0,
+        "x": -2.0,
         "y": 13.0,
         "w": 10.0,
         "h": 1.0
@@ -766,7 +810,7 @@
       "text": "Wire selection",
       "done": false,
       "location": {
-        "x": -1.0,
+        "x": -2.0,
         "y": 14.0,
         "w": 10.0,
         "h": 1.0
@@ -798,8 +842,8 @@
       "text": "Show wire while making",
       "done": false,
       "location": {
-        "x": 46.0,
-        "y": 13.0,
+        "x": 33.0,
+        "y": 23.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -813,23 +857,8 @@
       "kind": "Note",
       "text": "Sometime",
       "location": {
-        "x": -2.0,
+        "x": -3.0,
         "y": 10.0,
-        "w": 10.0,
-        "h": 1.0
-      },
-      "min": {
-        "x": 5.0,
-        "y": 1.0
-      }
-    },
-    {
-      "id": "6341a8066345c55c64e54e85",
-      "kind": "Note",
-      "text": "2.0",
-      "location": {
-        "x": -2.0,
-        "y": 16.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -844,8 +873,8 @@
       "text": "Better undo",
       "done": false,
       "location": {
-        "x": -1.0,
-        "y": 19.0,
+        "x": 33.0,
+        "y": 22.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -857,7 +886,7 @@
     {
       "id": "6341a8616345c55c64e54e87",
       "kind": "Script",
-      "text": "55%",
+      "text": "100%",
       "file": "scripts/value.nim",
       "location": {
         "x": 8.0,
@@ -876,8 +905,8 @@
       "text": "Script edit menu",
       "done": false,
       "location": {
-        "x": -1.0,
-        "y": 20.0,
+        "x": 21.0,
+        "y": 21.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -890,10 +919,169 @@
       "id": "634213866b8a88d3b205ad30",
       "kind": "Todo",
       "text": "Drag n drop files",
-      "done": false,
+      "done": true,
       "location": {
         "x": 33.0,
+        "y": 20.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "639e651a310e48b98f6d97e7",
+      "kind": "Todo",
+      "text": "2.0",
+      "done": false,
+      "location": {
+        "x": 8.0,
+        "y": 8.0,
+        "w": 7.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63adea83850f241cd3e1a125",
+      "kind": "Todo",
+      "text": "Version 2.0",
+      "done": false,
+      "location": {
+        "x": 20.0,
+        "y": 17.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63adeaa4850f241cd3e1a127",
+      "kind": "Todo",
+      "text": "Insert menu",
+      "done": false,
+      "location": {
+        "x": 21.0,
+        "y": 20.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63adeaba850f241cd3e1a129",
+      "kind": "Todo",
+      "text": "Menus",
+      "done": false,
+      "location": {
+        "x": 20.0,
+        "y": 19.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63adeadf850f241cd3e1a12a",
+      "kind": "Todo",
+      "text": "EOU",
+      "done": false,
+      "location": {
+        "x": 32.0,
+        "y": 19.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63adeb1a850f241cd3e1a12c",
+      "kind": "Todo",
+      "text": "Cleanup",
+      "done": false,
+      "location": {
+        "x": 45.0,
+        "y": 19.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "6341a8066345c55c64e54e85",
+      "kind": "Note",
+      "text": "3.0",
+      "location": {
+        "x": -3.0,
+        "y": 17.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63adeb89850f241cd3e1a12f",
+      "kind": "Todo",
+      "text": "Config view",
+      "done": false,
+      "location": {
+        "x": -2.0,
         "y": 16.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63adeba7850f241cd3e1a130",
+      "kind": "Todo",
+      "text": "Config",
+      "done": false,
+      "location": {
+        "x": 59.0,
+        "y": 19.0,
+        "w": 10.0,
+        "h": 1.0
+      },
+      "min": {
+        "x": 5.0,
+        "y": 1.0
+      }
+    },
+    {
+      "id": "63adebac850f241cd3e1a131",
+      "kind": "Todo",
+      "text": "Colon bind",
+      "done": false,
+      "location": {
+        "x": 60.0,
+        "y": 20.0,
         "w": 10.0,
         "h": 1.0
       },
@@ -906,8 +1094,8 @@
   "camera": {
     "zoom": 1.03125,
     "position": {
-      "x": 25.35134506225586,
-      "y": 10.75390911102295
+      "x": 40.68141555786133,
+      "y": 19.44208335876465
     }
   }
 }

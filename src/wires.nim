@@ -33,7 +33,7 @@ proc initWires*() =
   wireProg.registerParam("projection", SPKProj4)
   regShader(wireProg)
 
-proc drawWires*(cards: seq[Card], unit: float32) =
+proc drawWires*(cards: seq[Card], unit: float32, errColor, progColor, cardColor, borderColor: Color) =
   glDisable(GL_BLEND)
   var verts: seq[tempVert]
   for c in cards:
@@ -42,10 +42,10 @@ proc drawWires*(cards: seq[Card], unit: float32) =
         pb = parent.actBounds.scale(unit).center() - textureOffset
         cb = c.actBounds.scale(unit).center() - textureOffset
         temp = tempVert()
-        color = mix(PROG_COLOR, CARD_COLOR, parent.progress)
+        color = mix(progColor, cardColor, parent.progress)
         center = (pb + cb) / 2
       if parent.progress > 1.0 or parent.progress < 0.0:
-        color = ERR_COLOR
+        color = errColor
 
       var d = normal(pb - cb) * unit / 8
       var d_left = newVector2(-d.y, d.x)
@@ -54,9 +54,9 @@ proc drawWires*(cards: seq[Card], unit: float32) =
 
       temp.w1 = 1.0
       temp.a1 = 1.0
-      temp.r1 = BORDER_COLOR.rf
-      temp.g1 = BORDER_COLOR.gf
-      temp.b1 = BORDER_COLOR.bf
+      temp.r1 = borderColor.rf
+      temp.g1 = borderColor.gf
+      temp.b1 = borderColor.bf
       temp.x1 = pb.x + d_left.x
       temp.y1 = pb.y + d_left.y
       verts &= temp

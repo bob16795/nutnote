@@ -124,13 +124,16 @@ proc loadCards*(file: string, cam: var Camera, icons: Table[string, Sprite]): se
   hist.actions = @[]
   hist.actionIdx = 0
         
-
 proc openFile*(cam: var Camera, cards: var seq[Card], icons: Table[string, Sprite]) =
-  var infile = callDialogFileOpen("Select File")
-  if infile == "": return
-  setCurrentDir(splitFile(infile).dir)
-  opened = infile
-  
-  var input = open(infile, fmRead)
-  cards = loadCards(input.readAll(), cam, icons)
-  input.close()
+  try:
+    var infile = callDialogFileOpen("Select File")
+    if infile == "": return
+    setCurrentDir(splitFile(infile).dir)
+    opened = infile
+    
+    var input = open(infile, fmRead)
+    cards = loadCards(input.readAll(), cam, icons)
+    input.close()
+  except JsonParsingError:
+    opened = ""
+    cards = @[]

@@ -1,4 +1,7 @@
 [DEBUG] ho->font: Loaded font library
 [DEBUG] ho->font: Loaded font
+[INFO] nutnote->cfg: Normal Init
+[INFO] nutnote->cfg: Wire Init
+[INFO] nutnote->cfg: Edit Init
 [DEBUG] ho->font: Unloaded font library
-[DEBUG] ho->texture: Loaded texture
+[TRACE] nutnote->status:    

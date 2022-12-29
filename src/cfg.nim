@@ -5,14 +5,14 @@ import sets
 import os
 import parseutils
 import sugar
-from tables import `[]=`, `[]`, Table, contains
+from tables import `[]=`, `[]`, toTable, Table, contains
 
 type
   kbMode* = object
     name*: string
     wiresAbove*: bool
     editing*: bool
-    color*: Color
+    colors*: Table[string, Color]
   kbActionKind* = enum
     kakNull
     kakMove
@@ -27,6 +27,7 @@ type
     kakFullscreen
     kakToggle
     kakClipboard
+    kakMenu
   kbAction* = ref object
     case kind*: kbActionKind
     of kakCall:
@@ -55,6 +56,15 @@ type
     mods*: kbMods
     key*: Key
     action*: kbAction
+
+const 
+  DEFAULT_SETTINGS = [
+    ("position", "false"),
+    ("status", "true"),
+    ("status_height", "60"),
+    ("status_padding", "10"),
+  ].toTable()
+
 
 template newBind(nmode: int, keybind: Key, a, s, c: bool, act: kbAction): untyped =
   kbBind(
@@ -88,6 +98,8 @@ proc getAction*(text: string): kbAction =
     result = kbAction(kind: kakMove, moveDir: newPoint(parseInt(args[1]), parseInt(args[2])))
   of "mode":
     result = kbAction(kind: kakMode, mode: parseInt(args[1]))
+  of "menu":
+    result = kbAction(kind: kakMenu)
   of "sel":
     case args[1]:
     of "all":
@@ -111,67 +123,97 @@ proc getAction*(text: string): kbAction =
 
 var scripts*: seq[Option[Interpreter]]
 var runActionThing*: proc(action: kbAction)
+var settings*: Table[string, string] = DEFAULT_SETTINGS
 
+proc getSettingBool*(name: string): bool =
+  return not (settings[name] == "")
+
+proc getSettingInt*(name: string): int =
+  result = parseInt(settings[name])
+
+proc getColor*(m: kbMode, name: string): Color =
+  if name in m.colors:
+    return m.colors[name]
+  else:
+    return m.colors["default"]
 
 proc sourceFile*(file: string) =
-  proc initMode(id: int, name: string) =
-    modes[id] = kbMode(name: name, color: newColor(255, 255, 255))
+  var index = len(scripts)
 
-  proc nameMode(id: int, name: string) =
-    modes[id].name = name
-    
-  proc flagMode(id: int, key: string, value: bool) =
-    case key:
-    of "edit":
-      modes[id].editing = value
-    of "wires":
-      modes[id].wiresAbove = value
+  capture index:
+    proc initMode(id: int, name: string) =
+      modes[id] = kbMode(name: name)
+      modes[id].colors["default"] = newColor(255, 255, 255)
 
-  proc bindMode(modeId: int, key: string, action: string) =
-    var keyName = key.split("-")[^1]
-    var keyMods: set[char]
-    if "-" in key:
-      for e in key.split("-")[0..^2]:
-        keyMods = keyMods + {e[0]}
+    proc nameMode(id: int, name: string) =
+      modes[id].name = name
+      
+    proc flagMode(id: int, key: string, value: bool) =
+      case key:
+      of "edit":
+        modes[id].editing = value
+      of "wires":
+        modes[id].wiresAbove = value
 
-    var keycode: Key
-    if keyName.len() == 1:
-      keycode = cast[Key](cast[int](keyName[0]) - cast[int]('A') + cast[int](keyA))
-    else:
-      case keyName:
-      of "Del":
-        keycode = keyDelete
-      of "Esc":
-        keycode = keyEscape
-      of "Spc":
-        keycode = keySpace
-    binds &= newBind(modeId, keycode, 'A' in keyMods, 'S' in keyMods, 'C' in keyMods, getAction(action))
+    proc bindMode(modeId: int, key: string, action: string) =
+      var keyName = key.split("-")[^1]
+      var keyMods: set[char]
+      if "-" in key:
+        for e in key.split("-")[0..^2]:
+          keyMods = keyMods + {e[0]}
 
-  proc hiMode(mode, r, g, b: int) =
-    modes[mode].color = newColor(r.uint8, g.uint8, b.uint8)
+      var keycode: Key
+      if keyName.len() == 1:
+        keycode = cast[Key](cast[int](keyName[0]) - cast[int]('A') + cast[int](keyA))
+      else:
+        case keyName:
+        of "Del":
+          keycode = keyDelete
+        of "Esc":
+          keycode = keyEscape
+        of "Spc":
+          keycode = keySpace
+        of ":":
+          keycode = keySemicolon
+      binds &= newBind(modeId, keycode, 'A' in keyMods, 'S' in keyMods, 'C' in keyMods, getAction(action))
 
-  proc source(file: string) =
-    sourceFile(file)
+    proc hiMode(mode: int, name: string, r, g, b: int) =
+      modes[mode].colors[name] = newColor(r.uint8, g.uint8, b.uint8)
 
-  proc runAct(action: string) =
-    runActionThing(getAction(action))
+    proc runAct(action: string) =
+      runActionThing(getAction(action))
 
-  proc regAct(action: string, act: string) =
-    actions[action] = proc () = scripts[^1].get().invokeDynamic(act)
-  
-  proc log(data: string) =
-    LOG_INFO "nutnote->cfg", data
+    proc regAct(action: string, act: string) =
+      actions[action] = proc () = scripts[^1].get().invokeDynamic(act)
 
-  exportTo(myImpl,
-    initMode,
-    nameMode,
-    flagMode,
-    bindMode,
-    hiMode,
-    runAct,
-    regAct,
-    log,
-    )
-  const scriptProcs = implNimScriptModule(myImpl)
+    proc setb(setting: string, value: bool) =
+      if value:
+        settings[setting] = "true"
+      else:
+        settings[setting] = ""
 
-  scripts &= loadScript(NimScriptPath(file), scriptProcs, stdPath = getAppDir() / "stdlib")
+    proc seti(setting: string, value: int) =
+      settings[setting] = $value
+
+    proc sets(setting: string, value: string) =
+      settings[setting] = value
+
+    proc log(data: string) =
+      LOG_INFO "nutnote->cfg", data
+
+    exportTo(myImpl,
+      initMode,
+      nameMode,
+      flagMode,
+      bindMode,
+      hiMode,
+      runAct,
+      regAct,
+      setb,
+      seti,
+      sets,
+      log,
+      )
+    const scriptProcs = implNimScriptModule(myImpl)
+
+    scripts &= loadScript(NimScriptPath(file), scriptProcs, stdPath = getAppDir() / "stdlib")

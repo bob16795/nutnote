@@ -56,18 +56,18 @@ proc update*(c: Card, dt: float32) =
   c.actBounds.size = p2 - p1
   c.postUpdate(dt)
 
-method draw*(c: Card, unit: float32) {.base.} =
+method draw*(c: Card, unit: float32, cardColor, borderColor, progColor: Color) {.base.} =
   var box = c.actBounds.scale(unit)
-  bgSprite.draw(box, color=CARD_COLOR)
+  bgSprite.draw(box, color=cardColor)
   var b2 = box
   b2.width *= c.progressDisp.clamp(0, 1)
-  bgSprite.draw(b2, color=PROG_COLOR)
+  bgSprite.draw(b2, color=progColor)
   if box.height > unit:
     var botBox = box
     botBox.height -= unit
     botBox.y += unit
-    boxSprite.draw(botBox, c=BORDER_COLOR)
-  boxSprite.draw(box, c=BORDER_COLOR)
+    boxSprite.draw(botBox, c=borderColor)
+  boxSprite.draw(box, c=borderColor)
   
   c.icon.draw(newRect(box.location, 24 / 32 * unit, 24 / 32 * unit).offset(newVector2(4 / 32 * unit, 4 / 32 * unit)), color=ICON_COLOR)
 
@@ -75,9 +75,9 @@ method draw*(c: Card, unit: float32) {.base.} =
 method pressKey*(c: Card, text: string) =
   c.text = text
   
-method drawText*(c: Card, f: Font, unit: float32) {.base.} =
+method drawText*(c: Card, f: Font, unit: float32, textColor: Color) {.base.} =
   var box = c.actBounds.scale(unit)
-  f.draw(c.text, box.offset(newVector2(0, 6)).location, TEXT_COLOR, scale=ScaleFont(20 / 32 * unit))
+  f.draw(c.text, box.offset(newVector2(0, 6)).location, textColor, scale=ScaleFont(20 / 32 * unit))
 
 proc drawSel*(c: Card, unit: float32, selColor: Color) =
   if c.selected:

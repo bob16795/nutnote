@@ -15,7 +15,7 @@ var
 method pressKey*(c: TodoCard, text: string) =
   c.text = text
   
-method drawText*(c: TodoCard, f: Font, unit: float32) =
+method drawText*(c: TodoCard, f: Font, unit: float32, textColor: Color) =
   var y = 0
   for line in c.text.split("\n"):
     if y >= c.bounds.height.int:
@@ -24,7 +24,7 @@ method drawText*(c: TodoCard, f: Font, unit: float32) =
     if y == 0:
       box = box.offset(newVector2(1, 0))
     box = box.offset(newVector2(0, y)).scale(unit)
-    f.draw(line, box.offset(newVector2(4 / 32 * unit, 6 / 32 * unit)).location, TEXT_COLOR, scale=ScaleFont(20 / 32 * unit))
+    f.draw(line, box.offset(newVector2(4 / 32 * unit, 6 / 32 * unit)).location, textColor, scale=ScaleFont(20 / 32 * unit))
     y += 1
   if c.progress == 1:
     checkSprite.draw(newRect(c.actBounds.location * unit, 24 / 32 * unit, 24 / 32 * unit).offset(newVector2(4 / 32 * unit, 4 / 32 * unit)), color=ICON_COLOR)

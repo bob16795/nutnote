@@ -15,6 +15,7 @@ import src/data
 import src/card
 import src/undo
 import oids
+from glfw import cmHidden, `cursorMode=`
 
 import native_dialogs
 
@@ -65,6 +66,8 @@ Game:
     case action.kind:
       of kakNull:
         discard
+      of kakMenu:
+        prompt("run: ")
       of kakCall:
         action.callProc()
       of kakMove:
@@ -156,13 +159,19 @@ Game:
     of keyLeftShift, keyRightShift:
       shiftMod = true
     of keyEnter:
-      if modes[curMode].editing:
+      if statusPrompt:
+        var cmd = endPrompt()
+        var act = getAction(cmd)
+        runAction(act)
+      elif modes[curMode].editing:
         for c in cards:
           if c.selected:
             var data = c.text & "\n"
             c.pressKey(data)
             sendEvent(EVENT_SET_LINE_TEXT, addr data)
     else: discard
+    
+    if statusPrompt: return
     
     for b in binds:
       if curMode == b.mode and
@@ -172,10 +181,15 @@ Game:
           runAction(b.action)
 
   proc lineEnterEvent(data: pointer): bool =
-    for c in cards:
-      if c.selected:
-        c.pressKey(cast[ptr string](data)[])
-  
+    if statusPrompt:
+      var str = cast[ptr string](data)[]
+
+      statusVals[stPrompt] = str
+    else:
+      for c in cards:
+        if c.selected:
+          c.pressKey(cast[ptr string](data)[])
+    
   proc keyUpEvent(data: pointer): bool =
     var key = cast[ptr Key](data)[]
     case key
@@ -192,6 +206,21 @@ Game:
 
     size.x = size_d.w
     size.y = size_d.h
+
+  proc getCardPath(path: string): Card =
+    if path == "": return
+    var bnds = newRect(((mousePos - newVector2(0.5, 0.5)).toPoint()).toVector2(), 10, 1)
+    case path.splitFile().ext
+    of ".nim":
+      result = newScriptCard(bnds, path, newPoint(5, 2), icons["Script"])
+    of ".png":
+      result = newImageCard(bnds, path, "", newPoint(5, 2), icons["Image"])
+
+  proc dropFileEvent(data: pointer): bool =
+    var path = cast[ptr cstring](data)[]
+    var card = getCardPath($path)
+    hist.addAction(Action(kind: akAdd, addCard: card))
+    cards &= card
 
   proc mousePressEvent(data: pointer): bool =
     var btn = cast[ptr int](data)[]
@@ -223,21 +252,14 @@ Game:
           cursor.wire = true
           cursor.wireCard = c
           return
-      var bnds = newRect(((mousePos - newVector2(0.5, 0.5)).toPoint()).toVector2(), 10, 1)
       var card: Card
+      var bnds = newRect(((mousePos - newVector2(0.5, 0.5)).toPoint()).toVector2(), 10, 1)
       if shiftMod:
         card = NoteCard(target: bnds, actBounds: bnds, text: "Note Card", minx: 5, miny: 1, icon: icons["Note"], id: genOid())
       elif ctrlMod:
         bnds.height = 2
         var path = callDialogFileOpen("Select File")
-        if path == "": return
-        case path.splitFile().ext
-        of ".nim":
-          card = newScriptCard(bnds, path, newPoint(5, 2), icons["Script"])
-        of ".png":
-          card = newImageCard(bnds, path, "", newPoint(5, 2), icons["Image"])
-        else:
-          return
+        card = getCardPath(path)
       else:
         card = TodoCard(target: bnds, actBounds: bnds, text: "Todo Card", minx: 5, miny: 1, icon: icons["Todo"], id: genOid())
       hist.addAction(Action(kind: akAdd, addCard: card))
@@ -340,7 +362,7 @@ Game:
         return
 
   proc drawLoading(pc: float32, loadStatus: string, ctx: GraphicsContext) =
-    clearBuffer(ctx, BG_COLOR)
+    clearBuffer(ctx, modes[curMode].getColor("bg"))
 
   proc toGrid(pos: float32): int =
     return (pos / 4).int - 1
@@ -368,6 +390,7 @@ Game:
     resSprite = newUISprite(textures["8x"], Sprite8x(0, 6), Center8x(0, 6, 0, 0, 1, 1)).scale(Scale8x(32))
     boxSprite = newUISprite(textures["8x"], Sprite8x(0, 3), Center8x(0, 3, 1, 1, 2, 2)).scale(Scale8x(16))
     checkSprite = newSprite(textures["8x"], Sprite8x(0, 4))
+    statusSprite = newSprite(textures["8x"], Sprite8x(0, 11))
     icons["Todo"] = newSprite(textures["8x"], Sprite8x(0, 5))
     icons["Script"] = newSprite(textures["8x"], Sprite8x(0, 7))
     icons["Image"] = newSprite(textures["8x"], Sprite8x(0, 10))
@@ -384,6 +407,7 @@ Game:
     createListener(EVENT_MOUSE_CLICK, mousePressEvent)
     createListener(EVENT_MOUSE_RELEASE, mouseReleaseEvent)
     createListener(EVENT_LINE_ENTER, lineEnterEvent)
+    createListener(EVENT_DROP_FILE, dropFileEvent)
     initWires()
     
     camera.zoom = 1.0
@@ -416,6 +440,7 @@ Game:
     mousePos += camera.update(size.toVector2() / unit, dt)
 
     cursor.update(dt)
+    updateStatus(modes[curMode], opened)
 
     timer += dt
 
@@ -429,34 +454,38 @@ Game:
     boxSprite = boxSprite.scale(Scale8x(unit / 2))
 
   proc Draw(ctx: var GraphicsContext) =
+    ctx.window.cursorMode = cmHidden
     ctx.setFullscreen(fullscreen)
-    ctx.clearBuffer(BG_COLOR)
+    ctx.clearBuffer(modes[curMode].getColor("bg"))
 
     for x in (camera.position.x).toGrid() - (size.x.float32 / unit / 8).int..(camera.position.x).toGrid() + (size.x.float32 / unit / 8).int + 2:
       for y in (camera.position.y).toGrid() - (size.y.float32 / unit / 8).int..(camera.position.y).toGrid() + (size.y.float32 / unit / 8).int + 2:
-        gridSprite.draw(newRect(x.float32 * unit * 4, y.float32 * unit * 4, unit.float32 * 4, unit.float32 * 4), color=GRID_COLOR)
+        gridSprite.draw(newRect(x.float32 * unit * 4, y.float32 * unit * 4, unit.float32 * 4, unit.float32 * 4), color=modes[curMode].getColor("grid"))
 
     finishDraw()
 
-    drawStatus()
-
     if not modes[curMode].wiresAbove:
-      cards.drawWires(unit)
+      cards.drawWires(unit, modes[curMode].getColor("err"), modes[curMode].getColor("progress"), modes[curMode].getColor("card"), modes[curMode].getColor("border"))
 
     for c in cards:
-      c.draw(unit)
+      c.draw(unit, modes[curMode].getColor("card"), modes[curMode].getColor("border"), modes[curMode].getColor("progress"))
     
     for c in cards:
-      c.drawText(uiFont, unit)
+      c.drawText(uiFont, unit, modes[curMode].getColor("text"))
 
     for c in cards:
-      c.drawSel(unit, modes[curMode].color)
+      c.drawSel(unit, modes[curMode].getColor("selection"))
    
     if modes[curMode].wiresAbove:
       finishDraw()
-      cards.drawWires(unit)
+      cards.drawWires(unit, modes[curMode].getColor("err"), modes[curMode].getColor("progress"), modes[curMode].getColor("card"), modes[curMode].getColor("border"))
 
     cursor.draw(unit)
+
+    finishDraw()
+
+    if getSettingBool("status"):
+      drawStatus(uiFont, size.toVector2(), getSettingInt("status_height").float32, bgSprite, modes[curMode].getColor("bg"), modes[curMode].getColor("status"))
 
   proc gameClose() =
     discard
